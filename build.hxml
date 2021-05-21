@@ -1,0 +1,8 @@
+-cp src\Base\Renderers
+-cp src\Base
+-cp src\Math
+-cp src
+-lib heaps
+-lib hlsdl
+-hl hello.hl
+-main Main
