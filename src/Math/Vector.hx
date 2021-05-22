@@ -10,14 +10,30 @@ abstract Vector(BaseVector) from BaseVector to BaseVector
     public var normalized(get, never) : Vector;
     function get_normalized()
     {
-        var v : Vector = new Vector(this.x, this.y) / size;
-        return v;
+        var v : Vector = new Vector(this.x, this.y);
+        if (v == Vector.ZERO)
+        {
+            return v;
+        }
+        return v / size;
     }
 
     public var size(get, never) : Float;
     function get_size()
     {
         return new Vector(this.x, this.y).distance(ZERO);
+    }
+
+    public var xVector(get, never) : Vector;
+    function get_xVector()
+    {
+        return new Vector(this.x, 0);
+    }
+
+    public var yVector(get, never) : Vector;
+    function get_yVector()
+    {
+        return new Vector(0, this.y);
     }
 
     public inline function new(x : Float, y : Float)
@@ -52,5 +68,17 @@ abstract Vector(BaseVector) from BaseVector to BaseVector
     public inline function sub(v : Vector) : Vector
     {
         return new Vector(this.x - v.x, this.y - v.y);
+    }
+
+    @:op(A == B)
+    public inline function equals(v : Vector) : Bool
+    {
+        return this.x == v.x && this.y == v.y;
+    }
+
+    @:op(A != B)
+    public inline function unequals(v : Vector) : Bool
+    {
+        return !v.equals(this);
     }
 }

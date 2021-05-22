@@ -19,12 +19,15 @@ class Entity
         return value;
     }
 
-    public function new(pos : Vector, size : Vector, renderer : IRenderer)
+    public function new(pos : Vector, size : Vector, ?renderer : IRenderer = null)
     {
         this.pos = pos;
         this.size = size;
         this.renderer = renderer;
-        this.renderer.init();
+        if (renderer != null)
+        {
+            this.renderer.init();
+        }
         render();
         entities.add(this);
     }
@@ -42,16 +45,22 @@ class Entity
     {
         if (dead)
         {
-            renderer.remove();
+            if (renderer != null)
+            {
+                renderer.remove();
+            }
             entities.remove(this);
         }
     }
 
     public function render()
     {
-        renderer.x = rect.topLeft.x;
-        renderer.y = rect.topLeft.y;
-        renderer.scaleX = size.x;
-        renderer.scaleY = size.y;
+        if (renderer != null)
+        {
+            renderer.x = rect.topLeft.x;
+            renderer.y = rect.topLeft.y;
+            renderer.scaleX = size.x;
+            renderer.scaleY = size.y;
+        }
     }
 }

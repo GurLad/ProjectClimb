@@ -2,3 +2,5 @@ Day 0 (20/5):
 Setting up the dev enviornment (VSCode) and installing all required libraries.
 Day 1 (21/5):
 I've spent 2 hours creating a basic engine & logic (Vectors, Rectangles, Entities, Renderers, Game loop). I have a white cube, like Blender! I already hate Haxe - no function overloading, weird operator overloading, no normal abstract classes, no protected... Oh well.
+Day 2 (22/5):
+Began working on PhysicsEntity. It was a nightmare. Collision detection isn't fun. It still has a glaring issue, but I'll fix it next time.

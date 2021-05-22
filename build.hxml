@@ -5,4 +5,5 @@
 -lib heaps
 -lib hlsdl
 -hl hello.hl
+-D windowSize=1280x720
 -main Main
