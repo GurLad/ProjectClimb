@@ -55,26 +55,29 @@ class Rectangle
     {
         return point.x >= topLeft.x && point.x <= bottomRight.x && point.y >= topLeft.y && point.y <= bottomRight.y;
     }
-    // This function doesn't work properly - it only checks if one object is inside the other. It needs to be reworked to check if the edges collide (oof)
-    public function overlaps(other : Rectangle) : Bool
+    // I'm not sure whether the current approach or using segment intersection is more efficient - TODO: check one day
+    public function overlaps(other : Rectangle, ?checkedOther : Bool = false) : Bool
     {
-        return other.pointInRectangle(topLeft) || other.pointInRectangle(topRight) || other.pointInRectangle(bottomLeft) || other.pointInRectangle(bottomRight);
+        return other.pointInRectangle(topLeft) || other.pointInRectangle(topRight) || other.pointInRectangle(bottomLeft) || other.pointInRectangle(bottomRight) ||
+            checkedOther ? false : other.overlaps(this, true);
     }
     // See above
-    public function overlapsY(other : Rectangle) : Float
+    public function overlapsY(other : Rectangle, ?checkedOther : Bool = false) : Int
     {
         if (other.pointInRectangle(topLeft) || other.pointInRectangle(topRight))
         {
-            return 1;
+            trace(other.centre + " is above " + centre);
+            return -1;
         }
         if (other.pointInRectangle(bottomRight) || other.pointInRectangle(bottomLeft))
         {
-            return -1;
+            trace(other.centre + " is below " + centre);
+            return 1;
         }
-        return 0;
+        return checkedOther ? 0 : -other.overlapsY(this, true);
     }
     // See above
-    public function overlapsX(other : Rectangle) : Float
+    public function overlapsX(other : Rectangle, ?checkedOther : Bool = false) : Int
     {
         if (other.pointInRectangle(topLeft) || other.pointInRectangle(bottomLeft))
         {
@@ -84,7 +87,7 @@ class Rectangle
         {
             return -1;
         }
-        return 0;
+        return checkedOther ? 0 : -other.overlapsX(this, true);
     }
 
     // public function new(topLeft : Vector, size : Vector)

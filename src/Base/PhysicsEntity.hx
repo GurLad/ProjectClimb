@@ -35,10 +35,8 @@ class PhysicsEntity extends Entity
         {
             if (entity != this)
             {
-                trace(xRect.bottomRight);
-                trace(yRect.bottomRight);
                 dirX = xRect.overlapsX(entity.rect);
-                dirY = yRect.overlapsX(entity.rect);
+                dirY = yRect.overlapsY(entity.rect);
                 if (dirX != 0 || dirY != 0)
                 {
                     onCollide(entity);
