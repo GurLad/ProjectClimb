@@ -1,18 +1,29 @@
+import hxd.Timer;
+import h2d.Text;
 import h2d.Scene;
 
 class Main extends hxd.App {
     public static var scene : Scene;
-    private var delay : Float = 2;
+    private var delay : Float = 0;
+    private var fpsDisplay : Text;
 
     override function init() {
         scene = s2d;
+
+        // FPS display
+
+        var font : h2d.Font = hxd.res.DefaultFont.get();
+        fpsDisplay = new h2d.Text(font);
+        fpsDisplay.text = "FPS: ";
+        fpsDisplay.textAlign = Left;
+        s2d.addChild(fpsDisplay);
         
         // Demo - move to a different file afterwards
 
         // Known physics bugs:
         // -If an entity moves too fast, it may end up on the other side of a block.
 
-        var block1 = new PhysicsEntity(new Vector(120,30), new Vector(50,50), new ColorRenderer(0xFFFFFF), new Vector(5,0));
+        var block1 = new ControlableEntity(new Vector(120,30), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
         var block2 = new Entity(new Vector(200,230), new Vector(400,20), new ColorRenderer(0xFF0000));
         var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
         var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));
@@ -25,6 +36,7 @@ class Main extends hxd.App {
     }
     override function update(dt:Float) {
         var timeScale = dt * 60;
+        fpsDisplay.text = "FPS: " + Math.round(Timer.fps()) + " / " + Timer.wantedFPS;
         delay -= dt;
         if (delay > 0)
         {

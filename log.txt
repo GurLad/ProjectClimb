@@ -7,3 +7,5 @@ Began working on PhysicsEntity. It was a nightmare. Collision detection isn't fu
 Day 3 (23/5):
 Turns out the physics bug was because I used overlapsX instead of overlapsY to determine Y collisions. Oops. I began a rework for nothing. Anyway, these things are mostly irrelevant, as most collisions will be Trigger anyway. And yet, I wasted ~1.5 days on this. Oh well. Should add LDtk support next.
 (Also, the first time I build each time, the physics break for no apparent reason (and work properly every time once I rerun it). Why, Haxe?)
+Day 4 (24/5):
+I added a player-controlled character. Using keyboard input is pretty easy, and it was really nice finally making use of my systems. Like always, however, I began with fixing physics bugs. Oof. Also, apperantly my laptop refuses to run anything at over 30 FPS unless it's being charged. Why, laptop?

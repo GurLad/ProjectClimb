@@ -1,6 +1,7 @@
 -cp src\Base\Renderers
 -cp src\Base
 -cp src\Math
+-cp src\Entities
 -cp src
 -lib heaps
 -lib hlsdl

@@ -4,6 +4,7 @@ class PhysicsEntity extends Entity
 
     public var velocity : Vector;
     public var useGravity : Bool = true;
+    public var grounded : Bool;
 
     public function new(pos : Vector, size : Vector, ?renderer : IRenderer = null, ?velocity : Vector = null)
     {
@@ -24,13 +25,14 @@ class PhysicsEntity extends Entity
         {
             velocity.y += GRAVITY_SCALE * timeScale;
         }
+        grounded = false;
         // Collisions
         var dirX, dirY : Float;
         var xRect, yRect : Rectangle;
         xRect = rect.clone();
-        xRect.topLeft += velocity.xVector;
+        xRect.topLeft += velocity.xVector * timeScale;
         yRect = rect.clone();
-        yRect.topLeft += velocity.yVector;
+        yRect.topLeft += velocity.yVector * timeScale;
         for (entity in Entity.entities)
         {
             if (entity != this)
@@ -40,7 +42,6 @@ class PhysicsEntity extends Entity
                 if (dirX != 0 || dirY != 0)
                 {
                     onCollide(entity);
-                    var temp : Rectangle = rect;
                     // trace(velocity);
                     // trace(xRect.bottomRight);
                     // trace(yRect.bottomRight);
@@ -48,27 +49,24 @@ class PhysicsEntity extends Entity
                     // trace(dirX + ", " + dirY);
                     if (dirX > 0)
                     {
-                        temp.topLeft = new Vector(entity.rect.bottomRight.x + 0.01, temp.topLeft.y);
-                        pos = temp.centre;
+                        pos.x = entity.rect.bottomRight.x + size.x / 2 + 0.01;
                         velocity.x = 0;
                     }
                     else if (dirX < 0)
                     {
-                        temp.bottomRight = new Vector(entity.rect.topLeft.x - 0.01, temp.bottomRight.y);
-                        pos = temp.centre;
+                        pos.x = entity.rect.topLeft.x - size.x / 2 - 0.01;
                         velocity.x = 0;
                     }
                     if (dirY < 0)
                     {
-                        temp.topLeft = new Vector(temp.topLeft.x, entity.rect.bottomRight.y + 0.01);
-                        pos = temp.centre;
+                        pos.y = entity.rect.bottomRight.y + size.y / 2 + 0.01;
                         velocity.y = 0;
                     }
                     else if (dirY > 0)
                     {
-                        temp.bottomRight = new Vector(temp.bottomRight.x, entity.rect.topLeft.y - 0.01);
-                        pos = temp.centre;
+                        pos.y = entity.rect.topLeft.y - size.y / 2 - 0.01;
                         velocity.y = 0;
+                        grounded = true;
                     }
                 }
             }
