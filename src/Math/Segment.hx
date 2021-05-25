@@ -7,8 +7,8 @@ class Segment
 
     public function new(point1 : Vector, point2 : Vector)
     {
-        this.point1 = point1;
-        this.point2 = point2;
+        this.point1 = point1.clone();
+        this.point2 = point2.clone();
     }
 
     public function intersects(s : Segment) : Bool

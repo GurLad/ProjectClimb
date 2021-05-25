@@ -1,6 +1,6 @@
 import hxd.Key;
 
-class ControlableEntity extends PhysicsEntity
+class ControlableEntity extends BaseHealthEntity
 {
     public var speed : Float;
     public var jumpForce : Float;
@@ -10,6 +10,11 @@ class ControlableEntity extends PhysicsEntity
         super(pos, size, renderer);
         this.speed = speed;
         this.jumpForce = jumpForce;
+    }
+
+    override function get_tags():EntityType
+    {
+        return EntityType.Player;
     }
 
     public override function preUpdate(timeScale:Float)
@@ -34,15 +39,11 @@ class ControlableEntity extends PhysicsEntity
         if (Key.isPressed(Key.SPACE)) // Cheat
         {
             velocity.y = -jumpForce;
-            size -= new Vector(5,5);
+            new TempPlayerFireball(pos + size.xVector, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(velocity.x != 0 ? velocity.x : speed, 0) * 2);
         }
     }
 
     override function onCollide(collider:Entity) {
         super.onCollide(collider);
-        if (collider is PhysicsEntity)
-        {
-            collider.destroy();
-        }
     }
 }

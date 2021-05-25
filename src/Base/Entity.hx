@@ -1,10 +1,19 @@
+import EntityType;
+
 class Entity
 {
     public static var entities(default, null) : List<Entity> = new List<Entity>();
+    public static var TBA(default, null) : List<Entity> = new List<Entity>();
 
     public var pos : Vector;
     public var size : Vector;
     public var dead : Bool;
+    public var name : String;
+    public var tags(get, null) : EntityType;
+    public function get_tags() : EntityType
+    {
+        return EntityType.None;
+    }
     private var renderer : IRenderer;
 
     public var rect(get,set) : Rectangle;
@@ -14,22 +23,22 @@ class Entity
     }
     function set_rect(value : Rectangle)
     {
-        pos = value.centre;
-        size = value.size;
+        pos = value.centre.clone();
+        size = value.size.clone();
         return value;
     }
 
     public function new(pos : Vector, size : Vector, ?renderer : IRenderer = null)
     {
-        this.pos = pos;
-        this.size = size;
+        this.pos = pos.clone();
+        this.size = size.clone();
         this.renderer = renderer;
         if (renderer != null)
         {
             this.renderer.init();
         }
         render();
-        entities.add(this);
+        TBA.add(this);
     }
 
     public function destroy()

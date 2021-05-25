@@ -9,11 +9,7 @@ class PhysicsEntity extends Entity
     public function new(pos : Vector, size : Vector, ?renderer : IRenderer = null, ?velocity : Vector = null)
     {
         super(pos, size, renderer);
-        this.velocity = velocity;
-        if (this.velocity == null)
-        {
-            this.velocity = Vector.ZERO;
-        }
+        this.velocity = velocity != null ? velocity.clone() : Vector.ZERO;
     }
 
     public final override function update(timeScale:Float) {
@@ -42,31 +38,38 @@ class PhysicsEntity extends Entity
                 if (dirX != 0 || dirY != 0)
                 {
                     onCollide(entity);
-                    // trace(velocity);
-                    // trace(xRect.bottomRight);
-                    // trace(yRect.bottomRight);
-                    // trace(entity.rect.topRight);
-                    // trace(dirX + ", " + dirY);
-                    if (dirX > 0)
+                    if (entity is PhysicsEntity)
                     {
-                        pos.x = entity.rect.bottomRight.x + size.x / 2 + 0.01;
-                        velocity.x = 0;
+                        cast(entity, PhysicsEntity).onCollide(this);
                     }
-                    else if (dirX < 0)
+                    else
                     {
-                        pos.x = entity.rect.topLeft.x - size.x / 2 - 0.01;
-                        velocity.x = 0;
-                    }
-                    if (dirY < 0)
-                    {
-                        pos.y = entity.rect.bottomRight.y + size.y / 2 + 0.01;
-                        velocity.y = 0;
-                    }
-                    else if (dirY > 0)
-                    {
-                        pos.y = entity.rect.topLeft.y - size.y / 2 - 0.01;
-                        velocity.y = 0;
-                        grounded = true;
+                        // trace(velocity);
+                        // trace(xRect.bottomRight);
+                        // trace(yRect.bottomRight);
+                        // trace(entity.rect.topRight);
+                        // trace(dirX + ", " + dirY);
+                        if (dirX > 0)
+                        {
+                            pos.x = entity.rect.bottomRight.x + size.x / 2 + 0.01;
+                            velocity.x = 0;
+                        }
+                        else if (dirX < 0)
+                        {
+                            pos.x = entity.rect.topLeft.x - size.x / 2 - 0.01;
+                            velocity.x = 0;
+                        }
+                        if (dirY < 0)
+                        {
+                            pos.y = entity.rect.bottomRight.y + size.y / 2 + 0.01;
+                            velocity.y = 0;
+                        }
+                        else if (dirY > 0)
+                        {
+                            pos.y = entity.rect.topLeft.y - size.y / 2 - 0.01;
+                            velocity.y = 0;
+                            grounded = true;
+                        }
                     }
                 }
             }
