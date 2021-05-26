@@ -4,6 +4,7 @@ class ControlableEntity extends BaseHealthEntity
 {
     public var speed : Float;
     public var jumpForce : Float;
+    private var direction : Int = 1;
 
     public function new(pos : Vector, size : Vector, renderer : IRenderer, speed : Float, jumpForce : Float)
     {
@@ -23,10 +24,12 @@ class ControlableEntity extends BaseHealthEntity
         if (Key.isDown(Key.LEFT))
         {
             velocity.x = -speed;
+            direction = -1;
         }
         else if (Key.isDown(Key.RIGHT))
         {
             velocity.x = speed;
+            direction = 1;
         }
         else
         {
@@ -39,7 +42,7 @@ class ControlableEntity extends BaseHealthEntity
         if (Key.isPressed(Key.SPACE)) // Cheat
         {
             velocity.y = -jumpForce;
-            new TempPlayerFireball(pos + size.xVector, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(velocity.x != 0 ? velocity.x : speed, 0) * 2);
+            new TempPlayerFireball(pos + size.xVector * direction, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(speed * direction, 0) * 2);
         }
     }
 

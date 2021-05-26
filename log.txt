@@ -11,3 +11,5 @@ Day 4 (24/5):
 I added a player-controlled character. Using keyboard input is pretty easy, and it was really nice finally making use of my systems. Like always, however, I began with fixing physics bugs. Oof. Also, apperantly my laptop refuses to run anything at over 30 FPS unless it's being charged. Why, laptop?
 Day 5 (25/5):
 I added basic enemy & projectile logic. I also fixed some bugs, and removed PhysicsEntity+PhysicsEntity collision, because it was buggy. Things are going along well, but I need to start making graphics now.
+Day 6 (26/5):
+I've made the first graphic! I even managed to set it up properly in LDtk. It has a very weird graphical bug, however. Next time, I'll try importing the LDtk level into the game, and add tilemap collisions. This should amount to 1/4th of the game.

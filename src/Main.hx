@@ -3,12 +3,19 @@ import h2d.Text;
 import h2d.Scene;
 
 class Main extends hxd.App {
-    public static var scene : Scene;
-    private var delay : Float = 5;
+    public static var entityLayer : h2d.Object = new h2d.Object();
+    public static var uiLayer : h2d.Object = new h2d.Object();
+    private static var scene : Scene;
+    private var delay : Float = 0;
     private var fpsDisplay : Text;
 
     override function init() {
         scene = s2d;
+
+        // Set UI vs. Entities layers
+
+        scene.addChildAt(uiLayer, 1);
+        scene.addChildAt(entityLayer, 0);
 
         // FPS display
 
@@ -16,7 +23,7 @@ class Main extends hxd.App {
         fpsDisplay = new h2d.Text(font);
         fpsDisplay.text = "FPS: ";
         fpsDisplay.textAlign = Left;
-        s2d.addChild(fpsDisplay);
+        uiLayer.addChild(fpsDisplay);
         
         // Demo - move to a different file afterwards
 
