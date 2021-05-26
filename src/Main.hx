@@ -12,6 +12,11 @@ class Main extends hxd.App {
     override function init() {
         scene = s2d;
 
+        // TEMP - render level
+
+        var p = new LDtk();
+        trace( p.all_levels ); // Well done!
+
         // Set UI vs. Entities layers
 
         scene.addChildAt(uiLayer, 1);
