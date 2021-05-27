@@ -11,11 +11,27 @@ class Main extends hxd.App {
 
     override function init() {
         scene = s2d;
+        hxd.Res.initEmbed();
 
         // TEMP - render level
 
-        var p = new LDtk();
-        trace( p.all_levels ); // Well done!
+        var project = new LDtk();
+        // Get level data
+        var level = project.all_levels.Level_1;
+
+        // Get level background image
+        if( level.hasBgImage() ) {
+            var background = level.getBgBitmap();
+            scene.addChild( background );
+        }
+
+        // Render an auto-layer 
+        var layerRender = level.l_BackgroundLayer.render();
+        layerRender.scale(2);
+        scene.addChild( layerRender );
+        layerRender = level.l_BaseLayer.render();
+        layerRender.scale(2);
+        scene.addChild( layerRender );
 
         // Set UI vs. Entities layers
 

@@ -66,12 +66,12 @@ class Rectangle
     {
         if (other.pointInRectangle(topLeft) || other.pointInRectangle(topRight))
         {
-            trace(other.centre + " is above " + centre);
+            //trace(other.centre + " is above " + centre);
             return -1;
         }
         if (other.pointInRectangle(bottomRight) || other.pointInRectangle(bottomLeft))
         {
-            trace(other.centre + " is below " + centre);
+            //trace(other.centre + " is below " + centre);
             return 1;
         }
         return checkedOther ? 0 : -other.overlapsY(this, true);

@@ -6,6 +6,7 @@
 -cp src
 -lib heaps
 -lib hlsdl
+-lib deepnightLibs
 -lib ldtk-haxe-api
 -hl hello.hl
 -D windowSize=1280x720
