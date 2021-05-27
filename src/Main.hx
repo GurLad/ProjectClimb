@@ -1,10 +1,13 @@
+import h2d.Camera;
 import hxd.Timer;
 import h2d.Text;
 import h2d.Scene;
 
 class Main extends hxd.App {
+    public static var tilemapLayer : h2d.Object = new h2d.Object();
     public static var entityLayer : h2d.Object = new h2d.Object();
     public static var uiLayer : h2d.Object = new h2d.Object();
+    public static var SCREEN_SIZE(default, null) = new Vector(1280, 720);
     private static var scene : Scene;
     private var delay : Float = 0;
     private var fpsDisplay : Text;
@@ -12,31 +15,13 @@ class Main extends hxd.App {
     override function init() {
         scene = s2d;
         hxd.Res.initEmbed();
-
-        // TEMP - render level
-
-        var project = new LDtk();
-        // Get level data
-        var level = project.all_levels.Level_1;
-
-        // Get level background image
-        if( level.hasBgImage() ) {
-            var background = level.getBgBitmap();
-            scene.addChild( background );
-        }
-
-        // Render an auto-layer 
-        var layerRender = level.l_BackgroundLayer.render();
-        layerRender.scale(2);
-        scene.addChild( layerRender );
-        layerRender = level.l_BaseLayer.render();
-        layerRender.scale(2);
-        scene.addChild( layerRender );
+        scene.camera.setPosition(0, -SCREEN_SIZE.y);
 
         // Set UI vs. Entities layers
 
-        scene.addChildAt(uiLayer, 1);
-        scene.addChildAt(entityLayer, 0);
+        scene.addChildAt(uiLayer, 2);
+        scene.addChildAt(entityLayer, 1);
+        scene.addChildAt(tilemapLayer, 0);
 
         // FPS display
 
@@ -51,17 +36,20 @@ class Main extends hxd.App {
         // Known physics bugs:
         // -If an entity moves too fast, it may end up on the other side of a block.
 
-        var block1 = new ControlableEntity(new Vector(120,30), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
-        var block2 = new Entity(new Vector(200,230), new Vector(400,20), new ColorRenderer(0xFF0000));
-        var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
-        var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));
-        var block3 = new Entity(new Vector(600,230), new Vector(40,200), new ColorRenderer(0xFF00FF));
-        var block4 = new Entity(new Vector(500,530), new Vector(1000,20), new ColorRenderer(0xFFFF00));
-        var block5 = new BaseEnemy(new Vector(720,30), new Vector(30,30), new ColorRenderer(0x00FFFF), new Vector(2,0));
-        var block5 = new BaseEnemy(new Vector(500,0), new Vector(60,60), new ColorRenderer(0xAAFF00), new Vector(-1,0));
-        var block5 = new BaseEnemy(new Vector(860,-50), new Vector(100,20), new ColorRenderer(0x00AAFF), new Vector(0,0));
-        var block5 = new BaseEnemy(new Vector(100,300), new Vector(30,50), new ColorRenderer(0xFF00AA), new Vector(20,0));
-        var block5 = new Entity(new Vector(900,490), new Vector(30,50), new ColorRenderer(0xFFAAAA));
+        LDtkController.loadLevel(0);
+
+
+        var block1 = new ControlableEntity(new Vector(120,30 - SCREEN_SIZE.y), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
+        var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
+        // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
+        // var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));
+        // var block3 = new Entity(new Vector(600,230), new Vector(40,200), new ColorRenderer(0xFF00FF));
+        // var block4 = new Entity(new Vector(500,530), new Vector(1000,20), new ColorRenderer(0xFFFF00));
+        // var block5 = new BaseEnemy(new Vector(720,30), new Vector(30,30), new ColorRenderer(0x00FFFF), new Vector(2,0));
+        // var block5 = new BaseEnemy(new Vector(500,0), new Vector(60,60), new ColorRenderer(0xAAFF00), new Vector(-1,0));
+        // var block5 = new BaseEnemy(new Vector(860,-50), new Vector(100,20), new ColorRenderer(0x00AAFF), new Vector(0,0));
+        // var block5 = new BaseEnemy(new Vector(100,300), new Vector(30,50), new ColorRenderer(0xFF00AA), new Vector(20,0));
+        // var block5 = new Entity(new Vector(900,490), new Vector(30,50), new ColorRenderer(0xFFAAAA));
     }
     override function update(dt:Float) {
         var timeScale = dt * 60;
@@ -80,6 +68,7 @@ class Main extends hxd.App {
             Entity.entities.add(entity);
         }
         Entity.TBA.clear();
+        uiLayer.setPosition(scene.camera.x, scene.camera.y);
         for (entity in Entity.entities)
         {
             entity.cleanup();

@@ -38,7 +38,7 @@ class PhysicsEntity extends Entity
                 if (dirX != 0 || dirY != 0)
                 {
                     onCollide(entity);
-                    if (entity is PhysicsEntity)
+                    if ((entity is PhysicsEntity))
                     {
                         cast(entity, PhysicsEntity).onCollide(this);
                     }
