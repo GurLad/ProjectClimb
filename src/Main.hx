@@ -1,3 +1,4 @@
+import hxd.res.Sound;
 import h2d.Camera;
 import hxd.Timer;
 import h2d.Text;
@@ -37,6 +38,17 @@ class Main extends hxd.App {
         // -If an entity moves too fast, it may end up on the other side of a block.
 
         LDtkController.loadLevel(0);
+
+        var musicResource:hxd.res.Sound = null;
+        //If we support mp3 we have our sound
+        if(hxd.res.Sound.supportedFormat(Mp3)){
+            musicResource = cast(hxd.Res.TheForgotten, hxd.res.Sound);
+        }  
+
+        if(musicResource != null){
+            //Play the music and loop it
+            musicResource.play(true);
+        }
 
         var block1 = new ControlableEntity(new Vector(120,30 - SCREEN_SIZE.y), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
         var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
