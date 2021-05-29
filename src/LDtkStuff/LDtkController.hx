@@ -1,9 +1,10 @@
 class LDtkController
 {
-    public static var tileData : Array2D;
+    public static var tileData : Array2D<Int>;
 
     public static function loadLevel(id : Int)
-    {var project = new LDtk();
+    {
+        var project = new LDtk();
         // Get level data
         var level = project.all_levels.Level_1;
 
@@ -23,12 +24,7 @@ class LDtkController
         layerRender.y -= level.l_BaseLayer.cHei * level.l_BaseLayer.gridSize * 2;
         Main.tilemapLayer.addChild( layerRender );
 
-        for (i in 0...level.l_BaseLayer.cHei)
-        {
-            for (i in 0...level.l_BaseLayer.cWid)
-            {
-                // TBA - create tileData
-            }
-        }
+
+        tileData = Array2D.fromFunction(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei, (x : Int, y : Int) -> cast(level.l_BaseLayer.getInt(x,y), Int));
     }
 }

@@ -38,7 +38,6 @@ class Main extends hxd.App {
 
         LDtkController.loadLevel(0);
 
-
         var block1 = new ControlableEntity(new Vector(120,30 - SCREEN_SIZE.y), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
         var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
         // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
