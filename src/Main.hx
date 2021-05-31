@@ -16,7 +16,6 @@ class Main extends hxd.App {
     override function init() {
         scene = s2d;
         hxd.Res.initEmbed();
-        scene.camera.setPosition(0, -SCREEN_SIZE.y);
 
         // Set UI vs. Entities layers
 
@@ -38,6 +37,7 @@ class Main extends hxd.App {
         // -If an entity moves too fast, it may end up on the other side of a block.
 
         LDtkController.loadLevel(0);
+        scene.camera.setPosition(0, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - SCREEN_SIZE.y);
 
         var musicResource:hxd.res.Sound = null;
         //If we support mp3 we have our sound
@@ -50,7 +50,7 @@ class Main extends hxd.App {
             musicResource.play(true);
         }
 
-        var block1 = new ControlableEntity(new Vector(120,30 - SCREEN_SIZE.y), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
+        var block1 = new ControlableEntity(new Vector(800, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 256), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
         var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
         // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
         // var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));

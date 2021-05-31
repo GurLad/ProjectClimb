@@ -1,6 +1,10 @@
 class LDtkController
 {
+    public static var SIZE_MOD(default, never) : Int = 2;
+    public static var TILE_SIZE(default, never) : Int = 32;
+    public static var TRUE_TILE_SIZE(default, never) : Int = SIZE_MOD * TILE_SIZE;
     public static var tileData : Array2D<Int>;
+    public static var levelSize : Vector;
 
     public static function loadLevel(id : Int)
     {
@@ -16,15 +20,22 @@ class LDtkController
 
         // Render an auto-layer 
         var layerRender = level.l_BackgroundLayer.render();
-        layerRender.scale(2);
+        layerRender.scale(SIZE_MOD);
         Main.tilemapLayer.addChild( layerRender );
-        layerRender.y -= level.l_BackgroundLayer.cHei * level.l_BackgroundLayer.gridSize * 2;
         layerRender = level.l_BaseLayer.render();
-        layerRender.scale(2);
-        layerRender.y -= level.l_BaseLayer.cHei * level.l_BaseLayer.gridSize * 2;
+        layerRender.scale(SIZE_MOD);
         Main.tilemapLayer.addChild( layerRender );
-
+        levelSize = new Vector(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei);
 
         tileData = Array2D.fromFunction(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei, (x : Int, y : Int) -> cast(level.l_BaseLayer.getInt(x,y), Int));
+    }
+
+    public static function hasCollision(cx : Int, cy : Int) : Bool
+    {
+        if (cx < 0 || cy < 0 || cx >= levelSize.x || cy >= levelSize.y)
+        {
+            return false;
+        }
+        return tileData[cx][cy] == 1;
     }
 }

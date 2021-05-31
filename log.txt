@@ -16,4 +16,6 @@ I've made the first graphic! I even managed to set it up properly in LDtk. It ha
 Day 7 (27/5):
 Integrating LDtk was annoying, and I had a ton of foolish bugs. I'm still baffled by the lack of some features in Haxe - like comfortable 2d arrays... Next time, I'll add tilemap collision detection (finally getting rid of my terrible entity-based collision physics). After one week, I have barely anything - I could've finished this in Unity in ~2 hours. Oh well.
 Day 8 (29/5):
-Still annoying technical stuff. Next time I'll add tilemap collisions. Too tired now.
+Still annoying technical stuff. Next time I'll add tilemap collisions. Too tired now. Also, added a music.
+Day 9 (31/5):
+I've began reworking the physics for tilemap collisions. Not very fun. It mostly works, but has problems in the edges.
