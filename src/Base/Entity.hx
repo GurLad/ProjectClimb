@@ -35,7 +35,7 @@ class Entity
         this.renderer = renderer;
         if (renderer != null)
         {
-            this.renderer.init();
+            this.renderer.init(this);
         }
         render();
         TBA.add(this);
@@ -56,7 +56,7 @@ class Entity
         {
             if (renderer != null)
             {
-                renderer.remove();
+                renderer.dispose();
             }
             entities.remove(this);
         }
@@ -66,10 +66,7 @@ class Entity
     {
         if (renderer != null)
         {
-            renderer.x = rect.topLeft.x;
-            renderer.y = rect.topLeft.y;
-            renderer.scaleX = size.x;
-            renderer.scaleY = size.y;
+            renderer.render(rect.topLeft, size);
         }
     }
 }

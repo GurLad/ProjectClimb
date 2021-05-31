@@ -19,3 +19,4 @@ Day 8 (29/5):
 Still annoying technical stuff. Next time I'll add tilemap collisions. Too tired now. Also, added a music.
 Day 9 (31/5):
 I've began reworking the physics for tilemap collisions. Not very fun. It mostly works, but has problems in the edges.
+I've also added basic animation rendering - I'll add auto changing directions (and actual animations) next time.

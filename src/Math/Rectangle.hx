@@ -8,7 +8,7 @@ class Rectangle
     {
         return topLeft + (size / 2);
     }
-    function set_centre(value : Vector)
+    function set_centre(value : Vector) : Vector
     {
         return topLeft = value - (size / 2);
     }
@@ -18,7 +18,7 @@ class Rectangle
     {
         return topLeft + size;
     }
-    function set_bottomRight(value : Vector)
+    function set_bottomRight(value : Vector) : Vector
     {
         return topLeft = value - size;
     }
@@ -41,7 +41,7 @@ class Rectangle
         centre = new Vector(x, y);
     }
 
-    public static function fromCentreAndSize(centre : Vector, size : Vector)
+    public static function fromCentreAndSize(centre : Vector, size : Vector) : Rectangle
     {
         return new Rectangle(centre.x, centre.y, size.x, size.y);
     }

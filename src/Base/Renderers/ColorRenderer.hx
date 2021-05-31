@@ -1,16 +1,11 @@
-class ColorRenderer extends IRenderer
+class ColorRenderer extends ObjectRenderer
 {
     private var color : Int;
 
     public function new(color : Int)
     {
-        super(Main.entityLayer);
+        super();
         this.color = color;
-    }
-
-    public override function init()
-    {
-        super.init();
         addChild(new h2d.Bitmap(h2d.Tile.fromColor(color, 1, 1), Main.entityLayer));
     }
 }

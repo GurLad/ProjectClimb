@@ -1,3 +1,4 @@
+import MultiAnimationRenderer.MutiAnimationRenderer;
 import hxd.res.Sound;
 import h2d.Camera;
 import hxd.Timer;
@@ -50,7 +51,16 @@ class Main extends hxd.App {
             musicResource.play(true);
         }
 
-        var block1 = new ControlableEntity(new Vector(800, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 256), new Vector(50,50), new ColorRenderer(0xFFFFFF), 5, 5);
+        var tileSrc = hxd.Res.Temp.toTile();
+        var tiles = tileSrc.gridFlatten(32);
+        var map = new Map<String, Array<h2d.Tile>>();
+        map.set("Idle", tiles);
+
+        var block1 = new ControlableEntity(
+            new Vector(800, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 256),
+            new Vector(64,64),
+            new MutiAnimationRenderer(map, 32, "Idle"),
+            5, 5);
         var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
         // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
         // var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));

@@ -1,4 +1,6 @@
-class IRenderer extends h2d.Object
+interface IRenderer
 {
-    public function init() {} // abstract
+    public function init(entity : Entity) : Void;
+    public function dispose() : Void;
+    public function render(pos : Vector, size : Vector) : Void;
 }
