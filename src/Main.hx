@@ -51,7 +51,7 @@ class Main extends hxd.App {
             musicResource.play(true);
         }
 
-        var tileSrc = hxd.Res.Temp.toTile();
+        var tileSrc = hxd.Res.Idle.toTile();
         var tiles = tileSrc.gridFlatten(32);
         var map = new Map<String, Array<h2d.Tile>>();
         map.set("Idle", tiles);

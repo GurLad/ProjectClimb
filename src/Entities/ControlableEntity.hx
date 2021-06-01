@@ -1,3 +1,4 @@
+import MultiAnimationRenderer.MutiAnimationRenderer;
 import hxd.Key;
 
 class ControlableEntity extends BaseHealthEntity
@@ -5,10 +6,13 @@ class ControlableEntity extends BaseHealthEntity
     public var speed : Float;
     public var jumpForce : Float;
     private var direction : Int = 1;
+    private var animation : MutiAnimationRenderer;
 
-    public function new(pos : Vector, size : Vector, renderer : IRenderer, speed : Float, jumpForce : Float)
+    public function new(pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float)
     {
         super(pos, size, renderer);
+        // Move to AnimatedPhysicsEntity?
+        animation = renderer;
         this.speed = speed;
         this.jumpForce = jumpForce;
     }
@@ -24,11 +28,13 @@ class ControlableEntity extends BaseHealthEntity
         if (Key.isDown(Key.LEFT))
         {
             velocity.x = -speed;
+            animation.flipX = false;
             direction = -1;
         }
         else if (Key.isDown(Key.RIGHT))
         {
             velocity.x = speed;
+            animation.flipX = true;
             direction = 1;
         }
         else
