@@ -3,6 +3,7 @@ class MutiAnimationRenderer implements IRenderer
     private var renderer : h2d.Anim;
     private var animations : Map<String, Array<h2d.Tile>>;
     private var baseSize : Int;
+    private var playing : String;
     public var flipX : Bool;
     public var onAnimationEnd(null, set) : () -> Void;
     public function set_onAnimationEnd(value : () -> Void) : () -> Void
@@ -15,7 +16,7 @@ class MutiAnimationRenderer implements IRenderer
         this.animations = animations;
         renderer = new h2d.Anim(null, speed, Main.entityLayer);
         baseSize = animationSize;
-        if (initAnimation != null)
+        if ((playing = initAnimation) != null)
         {
             renderer.play(animations[initAnimation]);
         }
@@ -38,6 +39,10 @@ class MutiAnimationRenderer implements IRenderer
 
     public function play(name : String)
     {
-        renderer.play(animations[name]);
+        if (playing == name)
+        {
+            return;
+        }
+        renderer.play(animations[playing = name]);
     }
 }

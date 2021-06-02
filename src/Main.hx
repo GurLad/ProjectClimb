@@ -36,13 +36,14 @@ class Main extends hxd.App {
 
         // Known physics bugs:
         // -If an entity moves too fast, it may end up on the other side of a block.
+        // -If an entity collides a tilemap block at the edge, the collision isn't detected.
 
         LDtkController.loadLevel(0);
         scene.camera.setPosition(0, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - SCREEN_SIZE.y);
 
         var musicResource:hxd.res.Sound = null;
         //If we support mp3 we have our sound
-        if(hxd.res.Sound.supportedFormat(Mp3)){
+        if(hxd.res.Sound.supportedFormat(Wav)){
             musicResource = cast(hxd.Res.TheForgotten, hxd.res.Sound);
         }  
 

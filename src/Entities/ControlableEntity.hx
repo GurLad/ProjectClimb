@@ -1,8 +1,10 @@
+import hxd.Math;
 import MultiAnimationRenderer.MutiAnimationRenderer;
 import hxd.Key;
 
 class ControlableEntity extends BaseHealthEntity
 {
+    private static var MOVEMENT_LERP_VALUE(default, never) : Float = 0.2; // No idea how to call this
     public var speed : Float;
     public var jumpForce : Float;
     private var direction : Int = 1;
@@ -27,19 +29,27 @@ class ControlableEntity extends BaseHealthEntity
         super.preUpdate(timeScale);
         if (Key.isDown(Key.LEFT))
         {
-            velocity.x = -speed;
+            velocity.x = Math.lerp(velocity.x, -speed, MOVEMENT_LERP_VALUE * timeScale);
+            //animation.play("Walk");
             animation.flipX = false;
             direction = -1;
         }
         else if (Key.isDown(Key.RIGHT))
         {
-            velocity.x = speed;
+            velocity.x = Math.lerp(velocity.x, speed, MOVEMENT_LERP_VALUE * timeScale);
+            //animation.play("Walk");
             animation.flipX = true;
             direction = 1;
         }
         else
         {
-            velocity.x = 0;
+            var previousVelocity = velocity.x;
+            velocity.x = Math.lerp(velocity.x, 0, MOVEMENT_LERP_VALUE * timeScale);
+            if (previousVelocity * velocity.x < 0) // Passed target
+            {
+                velocity.x = 0;
+            }
+            animation.play("Idle");
         }
         if (Key.isPressed(Key.UP) && grounded) // Normal
         {
