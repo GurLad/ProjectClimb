@@ -16,12 +16,14 @@ class PhysicsEntity extends Entity
         super.update(timeScale);
         // Before physics
         preUpdate(timeScale);
+        
         // Physics - TBA: Change to only happen at ~30 FPS (to increase performance)
         if (useGravity)
         {
             velocity.y += GRAVITY_SCALE * timeScale;
         }
         grounded = false;
+
         // Collisions
         var dirX, dirY : Float;
         var xRect, yRect : Rectangle;
@@ -29,6 +31,7 @@ class PhysicsEntity extends Entity
         xRect.topLeft += velocity.xVector * timeScale;
         yRect = rect.clone();
         yRect.topLeft += velocity.yVector * timeScale;
+
         // Tilemap collisions
         // --- New logic:
         // TODO: make Vector generic type, default Float, for Int vectors
@@ -38,70 +41,32 @@ class PhysicsEntity extends Entity
         var spNeg : Float = sizeRatio / 2;
         var oldCx : Int = Math.floor(rect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
         var oldCy : Int = Math.floor(rect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
-        var oldTilesX : Int = Math.floor(rect.bottomRight.x / LDtkController.TRUE_TILE_SIZE) - Math.floor(rect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
-        var oldTilesY : Int = Math.floor(rect.bottomRight.y / LDtkController.TRUE_TILE_SIZE) - Math.floor(rect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
+        var oldTx : Int = Math.floor(rect.bottomRight.x / LDtkController.TRUE_TILE_SIZE) - Math.floor(rect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
+        var oldTy : Int = Math.floor(rect.bottomRight.y / LDtkController.TRUE_TILE_SIZE) - Math.floor(rect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
         var newCx : Int = Math.floor(xRect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
         var newCy : Int = Math.floor(yRect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
-        var newTilesX : Int = Math.floor(xRect.bottomRight.x / LDtkController.TRUE_TILE_SIZE) - Math.floor(xRect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
-        var newTilesY : Int = Math.floor(yRect.bottomRight.y / LDtkController.TRUE_TILE_SIZE) - Math.floor(yRect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
-        if (velocity.x > 0)
+        var newTx : Int = Math.floor(xRect.bottomRight.x / LDtkController.TRUE_TILE_SIZE) - Math.floor(xRect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
+        var newTy : Int = Math.floor(yRect.bottomRight.y / LDtkController.TRUE_TILE_SIZE) - Math.floor(yRect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
+        if (velocity.x >= velocity.y)
         {
-            if (newCx + newTilesX > oldCx + oldTilesX)
+            if (xCollided(newCx, newTx, oldCx, oldTx, oldCy, oldTy, spPos, spNeg))
             {
-                for (i in 0...(oldTilesY + 1))
-                {
-                    if (LDtkController.hasCollision(newCx + newTilesX, oldCy + i))
-                    {
-                        pos.x = (oldCx + oldTilesX + spPos) * LDtkController.TRUE_TILE_SIZE - 0.01;
-                        velocity.x = 0;
-                    }
-                }
+                newCx = oldCx;
+                newTx = oldTx;
             }
+            yCollided(newCy, newTy, oldCy, oldTy, newCx, newTx, spPos, spNeg);
         }
-        else if (velocity.x < 0)
+        else
         {
-            if (newCx < oldCx)
+            if (yCollided(newCy, newTy, oldCy, oldTy, oldCx, oldTx, spPos, spNeg))
             {
-                for (i in 0...(oldTilesY + 1))
-                {
-                    if (LDtkController.hasCollision(newCx, oldCy + i))
-                    {
-                        pos.x = (oldCx + spNeg) * LDtkController.TRUE_TILE_SIZE + 0.01;
-                        velocity.x = 0;
-                    }
-                }
+                newCy = oldCy;
+                newTy = oldTy;
             }
-        }
-        if (velocity.y > 0)
-        {
-            if (newCy + newTilesY > oldCy + oldTilesY)
-            {
-                for (i in 0...(oldTilesX + 1))
-                {
-                    if (LDtkController.hasCollision(oldCx + i, newCy + newTilesY))
-                    {
-                        pos.y = (oldCy + oldTilesY + spPos) * LDtkController.TRUE_TILE_SIZE - 0.01;
-                        velocity.y = 0;
-                        grounded = true;
-                    }
-                }
-            }
-        }
-        else if (velocity.y < 0)
-        {
-            if (newCy < oldCy)
-            {
-                for (i in 0...(oldTilesX + 1))
-                {
-                    if (LDtkController.hasCollision(oldCx + i, newCy))
-                    {
-                        pos.y = (oldCy + spNeg) * LDtkController.TRUE_TILE_SIZE + 0.01;
-                        velocity.y = 0;
-                    }
-                }
-            }
-        }
+            xCollided(newCx, newTx, oldCx, oldTx, newCy, newTy, spPos, spNeg);
+        }        
         size += new Vector(0.4, 0.4); // Bad fix for getting into tight corridors
+
         // --- Old logic:
         // var sizeRatio : Float = size.x / LDtkController.TRUE_TILE_SIZE;
         // var xx : Float = xRect.centre.x;
@@ -134,6 +99,7 @@ class PhysicsEntity extends Entity
         //     pos.y = (cy + spNeg) * LDtkController.TRUE_TILE_SIZE;
         //     velocity.y = 0;
         // }
+
         // Entity collisions
         for (entity in Entity.entities)
         {
@@ -181,8 +147,80 @@ class PhysicsEntity extends Entity
             }
         }
         pos += velocity * timeScale;
+
         // Post physics - only when they trigger
         fixedUpdate(timeScale);
+    }
+
+    private function xCollided(newCx : Int, newTx : Int, oldCx : Int, oldTx : Int, cy : Int, ty : Int, spPos : Float, spNeg : Float) : Bool
+    {
+        if (velocity.x > 0)
+        {
+            if (newCx + newTx > oldCx + oldTx)
+            {
+                for (i in 0...(ty + 1))
+                {
+                    if (LDtkController.hasCollision(newCx + newTx, cy + i))
+                    {
+                        pos.x = (oldCx + oldTx + spPos) * LDtkController.TRUE_TILE_SIZE - 0.01;
+                        velocity.x = 0;
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (velocity.x < 0)
+        {
+            if (newCx < oldCx)
+            {
+                for (i in 0...(ty + 1))
+                {
+                    if (LDtkController.hasCollision(newCx, cy + i))
+                    {
+                        pos.x = (oldCx + spNeg) * LDtkController.TRUE_TILE_SIZE + 0.01;
+                        velocity.x = 0;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private function yCollided(newCy : Int, newTy : Int, oldCy : Int, oldTy : Int, cx : Int, tx : Int, spPos : Float, spNeg : Float) : Bool
+    {
+        if (velocity.y > 0)
+        {
+            if (newCy + newTy > oldCy + oldTy)
+            {
+                for (i in 0...(tx + 1))
+                {
+                    if (LDtkController.hasCollision(cx + i, newCy + newTy))
+                    {
+                        pos.y = (oldCy + oldTy + spPos) * LDtkController.TRUE_TILE_SIZE - 0.01;
+                        velocity.y = 0;
+                        grounded = true;
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (velocity.y < 0)
+        {
+            if (newCy < oldCy)
+            {
+                for (i in 0...(tx + 1))
+                {
+                    if (LDtkController.hasCollision(cx + i, newCy))
+                    {
+                        pos.y = (oldCy + spNeg) * LDtkController.TRUE_TILE_SIZE + 0.01;
+                        velocity.y = 0;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public function preUpdate(timeScale:Float) {} // Abstract
