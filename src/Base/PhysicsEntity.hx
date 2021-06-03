@@ -47,25 +47,30 @@ class PhysicsEntity extends Entity
         var newCy : Int = Math.floor(yRect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
         var newTx : Int = Math.floor(xRect.bottomRight.x / LDtkController.TRUE_TILE_SIZE) - Math.floor(xRect.topLeft.x / LDtkController.TRUE_TILE_SIZE);
         var newTy : Int = Math.floor(yRect.bottomRight.y / LDtkController.TRUE_TILE_SIZE) - Math.floor(yRect.topLeft.y / LDtkController.TRUE_TILE_SIZE);
+        var tilemapCollided : Bool = false;
         if (velocity.x >= velocity.y)
         {
-            if (xCollided(newCx, newTx, oldCx, oldTx, oldCy, oldTy, spPos, spNeg))
+            if (tilemapCollided = xCollided(newCx, newTx, oldCx, oldTx, oldCy, oldTy, spPos, spNeg))
             {
                 newCx = oldCx;
                 newTx = oldTx;
             }
-            yCollided(newCy, newTy, oldCy, oldTy, newCx, newTx, spPos, spNeg);
+            tilemapCollided = yCollided(newCy, newTy, oldCy, oldTy, newCx, newTx, spPos, spNeg) || tilemapCollided;
         }
         else
         {
-            if (yCollided(newCy, newTy, oldCy, oldTy, oldCx, oldTx, spPos, spNeg))
+            if (tilemapCollided = yCollided(newCy, newTy, oldCy, oldTy, oldCx, oldTx, spPos, spNeg))
             {
                 newCy = oldCy;
                 newTy = oldTy;
             }
-            xCollided(newCx, newTx, oldCx, oldTx, newCy, newTy, spPos, spNeg);
-        }        
+            tilemapCollided = xCollided(newCx, newTx, oldCx, oldTx, newCy, newTy, spPos, spNeg) || tilemapCollided;
+        }
         size += new Vector(0.4, 0.4); // Bad fix for getting into tight corridors
+        if (tilemapCollided)
+        {
+            onTilemapCollide();
+        }
 
         // --- Old logic:
         // var sizeRatio : Float = size.x / LDtkController.TRUE_TILE_SIZE;
@@ -228,4 +233,6 @@ class PhysicsEntity extends Entity
     public function fixedUpdate(timeScale:Float) {} // Abstract
 
     public function onCollide(collider:Entity) {} // Abstract
+
+    public function onTilemapCollide() {} // Abstract
 }

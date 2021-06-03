@@ -24,3 +24,5 @@ Day 10 (1/6):
 Added idle animation for Blank, one of the two playable characters, and flipping the sprite when moving. I need so many animations now... And still need to fix the tilemap collisions.
 Day 11 (2/6):
 Vastly improved tilemap collisions, although they still don't work at extreme EDGE cases (get the POINT?).
+Day 12 (3/6):
+Finally fixed the tilemap collisions! I've also added onTilemapCollision - mostly for destroying projectiles. I really need to start working on animations.

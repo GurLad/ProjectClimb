@@ -10,4 +10,9 @@ class BaseProjectile extends PhysicsEntity
     {
         return EntityType.Projectile;
     }
+
+    override function onTilemapCollide()
+    {
+        destroy();
+    }
 }
