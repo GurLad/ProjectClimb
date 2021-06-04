@@ -62,6 +62,7 @@ class Main extends hxd.App {
             new Vector(64,64),
             new MutiAnimationRenderer(map, 32, "Idle"),
             5, 5);
+        var cam = new CameraFollower(scene.camera, block1);
         var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
         // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
         // var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));
@@ -90,12 +91,12 @@ class Main extends hxd.App {
             Entity.entities.add(entity);
         }
         Entity.TBA.clear();
-        uiLayer.setPosition(scene.camera.x, scene.camera.y);
         for (entity in Entity.entities)
         {
             entity.cleanup();
-            entity.render();
+            entity.render(timeScale);
         }
+        uiLayer.setPosition(scene.camera.x, scene.camera.y);
         for (entity in Entity.entities)
         {
             entity.lateUpdate(timeScale);

@@ -37,7 +37,7 @@ class Entity
         {
             this.renderer.init(this);
         }
-        render();
+        render(1);
         TBA.add(this);
     }
 
@@ -62,7 +62,7 @@ class Entity
         }
     }
 
-    public function render()
+    public function render(timeScale : Float)
     {
         if (renderer != null)
         {
