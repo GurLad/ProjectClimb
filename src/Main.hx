@@ -11,7 +11,7 @@ class Main extends hxd.App {
     public static var uiLayer : h2d.Object = new h2d.Object();
     public static var SCREEN_SIZE(default, null) = new Vector(1280, 720);
     private static var scene : Scene;
-    private var delay : Float = 0;
+    private var delay : Float = 5;
     private var fpsDisplay : Text;
 
     override function init() {
@@ -64,6 +64,9 @@ class Main extends hxd.App {
             5, 5);
         var cam = new CameraFollower(scene.camera, block1);
         var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
+        var enemy = EnemyBuilder.newSnail(new Vector(100, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 356));
+        var enemy2 = EnemyBuilder.newSnail(new Vector(250, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 1156));
+        var enemy3 = EnemyBuilder.newSnail(new Vector(170, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 756));
         // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
         // var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));
         // var block3 = new Entity(new Vector(600,230), new Vector(40,200), new ColorRenderer(0xFF00FF));

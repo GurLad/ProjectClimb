@@ -1,4 +1,4 @@
-class BaseHealthEntity extends PhysicsEntity
+class BaseHealthEntity extends BaseAnimatedPhysicsEntity
 {
     public var health : Int;
 

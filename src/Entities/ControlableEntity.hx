@@ -8,13 +8,10 @@ class ControlableEntity extends BaseHealthEntity
     public var speed : Float;
     public var jumpForce : Float;
     private var direction : Int = 1;
-    private var animation : MutiAnimationRenderer;
 
     public function new(pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float)
     {
         super(pos, size, renderer);
-        // Move to AnimatedPhysicsEntity?
-        animation = renderer;
         this.speed = speed;
         this.jumpForce = jumpForce;
     }

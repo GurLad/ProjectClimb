@@ -1,6 +1,7 @@
 -cp src\Base\Renderers
 -cp src\Base
 -cp src\Math
+-cp src\Entities\Enemies
 -cp src\Entities
 -cp src\LDtkStuff
 -cp src
