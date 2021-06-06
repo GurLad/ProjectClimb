@@ -8,10 +8,12 @@ class ControlableEntity extends BaseHealthEntity
     public var speed : Float;
     public var jumpForce : Float;
     private var direction : Int = 1;
+    private var playerID : Int;
 
-    public function new(pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float)
+    public function new(playerID : Int, pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float)
     {
         super(pos, size, renderer);
+        this.playerID = playerID;
         this.speed = speed;
         this.jumpForce = jumpForce;
     }
@@ -24,14 +26,14 @@ class ControlableEntity extends BaseHealthEntity
     public override function preUpdate(timeScale:Float)
     {
         super.preUpdate(timeScale);
-        if (Key.isDown(Key.LEFT))
+        if (Input.getLeft(playerID))
         {
             velocity.x = Math.lerp(velocity.x, -speed, MOVEMENT_LERP_VALUE * timeScale);
             //animation.play("Walk");
             animation.flipX = false;
             direction = -1;
         }
-        else if (Key.isDown(Key.RIGHT))
+        else if (Input.getRight(playerID))
         {
             velocity.x = Math.lerp(velocity.x, speed, MOVEMENT_LERP_VALUE * timeScale);
             //animation.play("Walk");
@@ -48,11 +50,11 @@ class ControlableEntity extends BaseHealthEntity
             }
             animation.play("Idle");
         }
-        if (Key.isPressed(Key.UP) && grounded) // Normal
+        if (Input.getHop(playerID) && grounded) // Normal
         {
             velocity.y = -jumpForce;
         }
-        if (Key.isPressed(Key.SPACE)) // Cheat
+        if (Input.getJump(playerID)) // Cheat
         {
             velocity.y = -jumpForce;
             new TempPlayerFireball(pos + size.xVector * direction, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(speed * direction, 0) * 2);

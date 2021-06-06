@@ -27,6 +27,23 @@ class LDtkController
         Main.tilemapLayer.addChild( layerRender );
         levelSize = new Vector(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei);
 
+        // Load entities
+        var entityLayer = level.l_Entities;
+        for (snail in entityLayer.all_SnailEnemy)
+        {
+            EnemyBuilder.newSnail(getEntityPos(snail), snail.f_FaceRight);
+        }
+        for (player in entityLayer.all_Player)
+        {
+            var newPlayer = PlayerBuilder.newBlunk(player.f_PlayerID, getEntityPos(player));
+            // TEMP
+            if (player.f_PlayerID == 0)
+            {
+                var cam = new CameraFollower(Main.camera, newPlayer);
+            }
+        }
+        
+
         tileData = Array2D.fromFunction(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei, (x : Int, y : Int) -> cast(level.l_BaseLayer.getInt(x,y), Int));
     }
 
@@ -37,5 +54,10 @@ class LDtkController
             return false;
         }
         return tileData[cx][cy] == 1;
+    }
+
+    private static function getEntityPos(entity : ldtk.Entity) : Vector
+    {
+        return new Vector(entity.pixelX, entity.pixelY) * SIZE_MOD;
     }
 }

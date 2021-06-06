@@ -25,6 +25,7 @@ class PhysicsEntity extends Entity
         grounded = false;
 
         // Collisions
+        size -= new Vector(0.4, 0.4); // Bad fix for getting into tight corridors
         var dirX, dirY : Float;
         var xRect, yRect : Rectangle;
         xRect = rect.clone();
@@ -35,7 +36,6 @@ class PhysicsEntity extends Entity
         // Tilemap collisions
         // --- New logic:
         // TODO: make Vector generic type, default Float, for Int vectors
-        size -= new Vector(0.4, 0.4); // Bad fix for getting into tight corridors
         var sizeRatio : Float = size.x / LDtkController.TRUE_TILE_SIZE;
         var spPos : Float = 1 - sizeRatio / 2;
         var spNeg : Float = sizeRatio / 2;

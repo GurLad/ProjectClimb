@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 38,
+	"nextUid": 43,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -30,6 +30,25 @@
 	"levelNamePattern": "Level_%idx",
 	"flags": [],
 	"defs": { "layers": [
+		{
+			"__type": "Entities",
+			"identifier": "Entities",
+			"type": "Entities",
+			"uid": 40,
+			"gridSize": 32,
+			"displayOpacity": 1,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"requiredTags": [],
+			"excludedTags": [],
+			"intGridValues": [{ "value": 1, "identifier": null, "color": "#000000" }],
+			"autoTilesetDefUid": null,
+			"autoRuleGroups": [],
+			"autoSourceLayerDefUid": null,
+			"tilesetDefUid": null,
+			"tilePivotX": 0,
+			"tilePivotY": 0
+		},
 		{
 			"__type": "IntGrid",
 			"identifier": "BaseLayer",
@@ -602,7 +621,100 @@
 			"tilePivotX": 0,
 			"tilePivotY": 0
 		}
-	], "entities": [], "tilesets": [
+	], "entities": [
+		{
+			"identifier": "Player",
+			"uid": 38,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#94D9B3",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "PlayerID",
+					"__type": "Int",
+					"uid": 42,
+					"type": "F_Int",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayPos": "Center",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
+		},
+		{
+			"identifier": "SnailEnemy",
+			"uid": 39,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#9A94D9",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "FaceRight",
+					"__type": "Bool",
+					"uid": 41,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
+		}
+	], "tilesets": [
 		{
 			"__cWid": 6,
 			"__cHei": 4,
@@ -660,6 +772,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Entities",
+					"__type": "Entities",
+					"__cWid": 8,
+					"__cHei": 8,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 0,
+					"layerDefUid": 40,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 6073011,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "BaseLayer",
 					"__type": "IntGrid",
@@ -1022,6 +1159,131 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Entities",
+					"__type": "Entities",
+					"__cWid": 16,
+					"__cHei": 64,
+					"__gridSize": 32,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 27,
+					"layerDefUid": 40,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 494794,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "SnailEnemy",
+							"__grid": [1,58],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 39,
+							"px": [48,1872],
+							"fieldInstances": [{
+								"__identifier": "FaceRight",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 41,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
+							}]
+						},
+						{
+							"__identifier": "SnailEnemy",
+							"__grid": [1,52],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 39,
+							"px": [48,1680],
+							"fieldInstances": [{
+								"__identifier": "FaceRight",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 41,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
+							}]
+						},
+						{
+							"__identifier": "SnailEnemy",
+							"__grid": [15,46],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 39,
+							"px": [496,1488],
+							"fieldInstances": [{ "__identifier": "FaceRight", "__value": false, "__type": "Bool", "defUid": 41, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Player",
+							"__grid": [11,59],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 38,
+							"px": [368,1904],
+							"fieldInstances": [{ "__identifier": "PlayerID", "__value": 0, "__type": "Int", "defUid": 42, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "SnailEnemy",
+							"__grid": [7,51],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 39,
+							"px": [240,1648],
+							"fieldInstances": [{
+								"__identifier": "FaceRight",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 41,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
+							}]
+						},
+						{
+							"__identifier": "Player",
+							"__grid": [13,59],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 38,
+							"px": [432,1904],
+							"fieldInstances": [{
+								"__identifier": "PlayerID",
+								"__value": 1,
+								"__type": "Int",
+								"defUid": 42,
+								"realEditorValues": [{ "id": "V_Int", "params": [1] }]
+							}]
+						}
+					]
+				},
 				{
 					"__identifier": "BaseLayer",
 					"__type": "IntGrid",

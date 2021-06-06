@@ -9,9 +9,14 @@ class Main extends hxd.App {
     public static var tilemapLayer : h2d.Object = new h2d.Object();
     public static var entityLayer : h2d.Object = new h2d.Object();
     public static var uiLayer : h2d.Object = new h2d.Object();
+    public static var camera(get, never) : h2d.Camera;
+    public static function get_camera() : h2d.Camera
+    {
+        return scene.camera;
+    }
     public static var SCREEN_SIZE(default, null) = new Vector(1280, 720);
     private static var scene : Scene;
-    private var delay : Float = 5;
+    private var delay : Float = 3;
     private var fpsDisplay : Text;
 
     override function init() {
@@ -51,31 +56,6 @@ class Main extends hxd.App {
             //Play the music and loop it
             musicResource.play(true);
         }
-
-        var tileSrc = hxd.Res.Idle.toTile();
-        var tiles = tileSrc.gridFlatten(32);
-        var map = new Map<String, Array<h2d.Tile>>();
-        map.set("Idle", tiles);
-
-        var block1 = new ControlableEntity(
-            new Vector(800, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 256),
-            new Vector(64,64),
-            new MutiAnimationRenderer(map, 32, "Idle"),
-            5, 5);
-        var cam = new CameraFollower(scene.camera, block1);
-        var block2 = new Entity(new Vector(200,230 - SCREEN_SIZE.y), new Vector(400,20), null);
-        var enemy = EnemyBuilder.newSnail(new Vector(100, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 356));
-        var enemy2 = EnemyBuilder.newSnail(new Vector(250, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 1156));
-        var enemy3 = EnemyBuilder.newSnail(new Vector(170, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - 756));
-        // var block2 = new Entity(new Vector(500,200), new Vector(40,40), new ColorRenderer(0x0000FF));
-        // var block2 = new Entity(new Vector(460,300), new Vector(20,20), new ColorRenderer(0x00FF00));
-        // var block3 = new Entity(new Vector(600,230), new Vector(40,200), new ColorRenderer(0xFF00FF));
-        // var block4 = new Entity(new Vector(500,530), new Vector(1000,20), new ColorRenderer(0xFFFF00));
-        // var block5 = new BaseEnemy(new Vector(720,30), new Vector(30,30), new ColorRenderer(0x00FFFF), new Vector(2,0));
-        // var block5 = new BaseEnemy(new Vector(500,0), new Vector(60,60), new ColorRenderer(0xAAFF00), new Vector(-1,0));
-        // var block5 = new BaseEnemy(new Vector(860,-50), new Vector(100,20), new ColorRenderer(0x00AAFF), new Vector(0,0));
-        // var block5 = new BaseEnemy(new Vector(100,300), new Vector(30,50), new ColorRenderer(0xFF00AA), new Vector(20,0));
-        // var block5 = new Entity(new Vector(900,490), new Vector(30,50), new ColorRenderer(0xFFAAAA));
     }
     override function update(dt:Float) {
         var timeScale = dt * 60;
