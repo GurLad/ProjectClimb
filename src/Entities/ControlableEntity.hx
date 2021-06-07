@@ -9,6 +9,7 @@ class ControlableEntity extends BaseHealthEntity
     public var jumpForce : Float;
     private var direction : Int = 1;
     private var playerID : Int;
+    private var canSuperJump : Bool;
 
     public function new(playerID : Int, pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float)
     {
@@ -29,14 +30,14 @@ class ControlableEntity extends BaseHealthEntity
         if (Input.getLeft(playerID))
         {
             velocity.x = Math.lerp(velocity.x, -speed, MOVEMENT_LERP_VALUE * timeScale);
-            //animation.play("Walk");
+            animation.play("Walk");
             animation.flipX = false;
             direction = -1;
         }
         else if (Input.getRight(playerID))
         {
             velocity.x = Math.lerp(velocity.x, speed, MOVEMENT_LERP_VALUE * timeScale);
-            //animation.play("Walk");
+            animation.play("Walk");
             animation.flipX = true;
             direction = 1;
         }
@@ -50,15 +51,23 @@ class ControlableEntity extends BaseHealthEntity
             }
             animation.play("Idle");
         }
-        if (Input.getHop(playerID) && grounded) // Normal
+        if (Input.getHop(playerID) && grounded) // Hop
         {
             velocity.y = -jumpForce;
         }
-        if (Input.getJump(playerID)) // Cheat
+        if (Input.getJump(playerID) && canSuperJump) // Jump
         {
-            velocity.y = -jumpForce;
+            velocity.y = -jumpForce * 1.7;
+            canSuperJump = false;
+        }
+        if (Input.getCast(playerID)) // Attack
+        {
             new TempPlayerFireball(pos + size.xVector * direction, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(speed * direction, 0) * 2);
         }
+    }
+
+    override function fixedUpdate(timeScale:Float) {
+        canSuperJump = canSuperJump || grounded;
     }
 
     override function onCollide(collider:Entity) {

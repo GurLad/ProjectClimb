@@ -16,7 +16,7 @@ class Main extends hxd.App {
     }
     public static var SCREEN_SIZE(default, null) = new Vector(1280, 720);
     private static var scene : Scene;
-    private var delay : Float = 3;
+    private var delay : Float = 0;
     private var fpsDisplay : Text;
 
     override function init() {

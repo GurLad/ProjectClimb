@@ -4,10 +4,9 @@ class PlayerBuilder
 {
     public static function newBlunk(playerID : Int, pos : Vector) : ControlableEntity
     {
-        var tileSrc = hxd.Res.Idle.toTile();
-        var tiles = tileSrc.gridFlatten(32);
-        var map = new Map<String, Array<h2d.Tile>>();
-        map.set("Idle", tiles);
+        var map = new AnimationMap();
+        map.addToMap(hxd.Res.Idle, "Idle");
+        map.addToMap(hxd.Res.Walk, "Walk");
 
         return new ControlableEntity(
             playerID,
