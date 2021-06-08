@@ -7,16 +7,22 @@ class ControlableEntity extends BaseHealthEntity
     private static var MOVEMENT_LERP_VALUE(default, never) : Float = 0.2; // No idea how to call this
     public var speed : Float;
     public var jumpForce : Float;
-    private var direction : Int = 1;
+    public var direction : Int = 1;
     private var playerID : Int;
     private var canSuperJump : Bool;
+    private var attackGroundSpell : Spell;
+    private var attackAirSpell : Spell; // TBA
+    private var jumpSpell : Spell; // TBA
+    private var currentSpell : Spell;
 
-    public function new(playerID : Int, pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float)
+    public function new(playerID : Int, pos : Vector, size : Vector, renderer : MutiAnimationRenderer, attackGroundSpell : Spell, speed : Float, jumpForce : Float)
     {
         super(pos, size, renderer);
         this.playerID = playerID;
         this.speed = speed;
         this.jumpForce = jumpForce;
+        this.attackGroundSpell = attackGroundSpell;
+        this.attackGroundSpell.entity = this;
     }
 
     override function get_tags():EntityType
@@ -27,6 +33,11 @@ class ControlableEntity extends BaseHealthEntity
     public override function preUpdate(timeScale:Float)
     {
         super.preUpdate(timeScale);
+        if (currentSpell != null && currentSpell.casting)
+        {
+            velocity.x = 0;
+            return;
+        }
         if (Input.getLeft(playerID))
         {
             velocity.x = Math.lerp(velocity.x, -speed, MOVEMENT_LERP_VALUE * timeScale);
@@ -62,7 +73,7 @@ class ControlableEntity extends BaseHealthEntity
         }
         if (Input.getCast(playerID)) // Attack
         {
-            new TempPlayerFireball(pos + size.xVector * direction, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(speed * direction, 0) * 2);
+            (currentSpell = attackGroundSpell).begin();
         }
     }
 

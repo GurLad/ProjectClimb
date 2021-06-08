@@ -10,6 +10,11 @@ class MutiAnimationRenderer implements IRenderer
     {
         return renderer.onAnimEnd = value;
     }
+    public var loop(null, set) : Bool;
+    public function set_loop(value : Bool) : Bool
+    {
+        return renderer.loop = value;
+    }
 
     public function new(animations : AnimationMap, animationSize : Int, initAnimation : String = null, speed : Float = 10)
     {
