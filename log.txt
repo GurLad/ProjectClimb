@@ -36,3 +36,5 @@ Day 16 (7/6):
 After way too much time, I've finally made a bad walking animation. Hate walking animations. Other than that, I've also added the Super Jump & Cast input logic.
 Day 17 (8/6):
 I've added spell casting (aka attack+jump) logic. It should make it pretty easy to add more spells in the future, as long as they aren't continous.
+Day 18 (10/6):
+It might be pointless, as I probably won't have time to add more levels, but I made the level loading generic. I've also changed the Jump and Air Attack actions to use spells. It's almost Smash-like now!

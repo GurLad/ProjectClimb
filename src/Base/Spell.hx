@@ -3,6 +3,7 @@ import MultiAnimationRenderer.MutiAnimationRenderer;
 class Spell
 {
     public var casting : Bool;
+    public var preCasting : Bool;
     public var entity : BaseAnimatedPhysicsEntity;
     private var startAnimation : String;
     private var endAnimation : String;
@@ -17,12 +18,13 @@ class Spell
 
     public function begin()
     {
-        casting = true;
+        preCasting = casting = true;
         entity.animation.loop = false;
         entity.animation.play(startAnimation);
         entity.animation.onAnimationEnd = () ->
         {
             onAnimationEnd(entity);
+            preCasting = false;
             entity.animation.play(endAnimation);
             entity.animation.onAnimationEnd = () ->
             {

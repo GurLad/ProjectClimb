@@ -4,6 +4,7 @@ class PhysicsEntity extends Entity
 
     public var velocity : Vector;
     public var useGravity : Bool = true;
+    public var lockPosition : Bool = false;
     public var grounded : Bool;
 
     public function new(pos : Vector, size : Vector, ?renderer : IRenderer = null, ?velocity : Vector = null)
@@ -16,6 +17,11 @@ class PhysicsEntity extends Entity
         super.update(timeScale);
         // Before physics
         preUpdate(timeScale);
+        if (lockPosition) // Skip physics
+        {
+            fixedUpdate(timeScale);
+            return;
+        }
         
         // Physics - TBA: Change to only happen at ~30 FPS (to increase performance)
         if (useGravity)

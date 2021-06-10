@@ -9,9 +9,26 @@ class LDtkController
     public static function loadLevel(id : Int)
     {
         var project = new LDtk();
-        // Get level data
-        var level = project.all_levels.Level_1;
+        switch (id)
+        {
+            case 1:
+                loadLevelData(project.all_levels.Level_1);
+            default:
+                return;
+        }
+    }
 
+    public static function hasCollision(cx : Int, cy : Int) : Bool
+    {
+        if (cx < 0 || cy < 0 || cx >= levelSize.x || cy >= levelSize.y)
+        {
+            return false;
+        }
+        return tileData[cx][cy] == 1;
+    }
+
+    private static function loadLevelData(level : LDtk.LDtk_Level)
+    {
         // Get level background image
         if( level.hasBgImage() ) {
             var background = level.getBgBitmap();
@@ -43,17 +60,8 @@ class LDtkController
             }
         }
         
-
+        // Save tile data
         tileData = Array2D.fromFunction(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei, (x : Int, y : Int) -> cast(level.l_BaseLayer.getInt(x,y), Int));
-    }
-
-    public static function hasCollision(cx : Int, cy : Int) : Bool
-    {
-        if (cx < 0 || cy < 0 || cx >= levelSize.x || cy >= levelSize.y)
-        {
-            return false;
-        }
-        return tileData[cx][cy] == 1;
     }
 
     private static function getEntityPos(entity : ldtk.Entity) : Vector

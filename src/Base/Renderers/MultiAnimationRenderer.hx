@@ -4,6 +4,7 @@ class MutiAnimationRenderer implements IRenderer
     private var animations : AnimationMap;
     private var baseSize : Int;
     private var playing : String;
+    public var lockAnimation : Bool = false;
     public var flipX : Bool;
     public var onAnimationEnd(null, set) : () -> Void;
     public function set_onAnimationEnd(value : () -> Void) : () -> Void
@@ -44,7 +45,7 @@ class MutiAnimationRenderer implements IRenderer
 
     public function play(name : String)
     {
-        if (playing == name)
+        if (playing == name || lockAnimation)
         {
             return;
         }

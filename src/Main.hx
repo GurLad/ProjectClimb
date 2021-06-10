@@ -43,7 +43,7 @@ class Main extends hxd.App {
         // -If an entity moves too fast, it may end up on the other side of a block.
         // -If an entity collides a tilemap block at the edge, the collision isn't detected.
 
-        LDtkController.loadLevel(0);
+        LDtkController.loadLevel(1);
         scene.camera.setPosition(0, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - SCREEN_SIZE.y);
 
         var musicResource:hxd.res.Sound = null;

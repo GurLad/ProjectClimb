@@ -15,7 +15,8 @@ class ControlableEntity extends BaseHealthEntity
     private var jumpSpell : Spell; // TBA
     private var currentSpell : Spell;
 
-    public function new(playerID : Int, pos : Vector, size : Vector, renderer : MutiAnimationRenderer, attackGroundSpell : Spell, speed : Float, jumpForce : Float)
+    public function new(playerID : Int, pos : Vector, size : Vector, renderer : MutiAnimationRenderer, speed : Float, jumpForce : Float,
+        attackGroundSpell : Spell, attackAirSpell : Spell, jumpSpell : Spell)
     {
         super(pos, size, renderer);
         this.playerID = playerID;
@@ -23,6 +24,10 @@ class ControlableEntity extends BaseHealthEntity
         this.jumpForce = jumpForce;
         this.attackGroundSpell = attackGroundSpell;
         this.attackGroundSpell.entity = this;
+        this.attackAirSpell = attackAirSpell;
+        this.attackAirSpell.entity = this;
+        this.jumpSpell = jumpSpell;
+        this.jumpSpell.entity = this;
     }
 
     override function get_tags():EntityType
@@ -33,10 +38,22 @@ class ControlableEntity extends BaseHealthEntity
     public override function preUpdate(timeScale:Float)
     {
         super.preUpdate(timeScale);
-        if (currentSpell != null && currentSpell.casting)
+        if (currentSpell != null)
         {
-            velocity.x = 0;
-            return;
+            if (currentSpell.preCasting)
+            {
+                return;
+            }
+            else if (currentSpell.casting)
+            {
+                lockPosition = false;
+                animation.lockAnimation = true;
+            }
+            else if (!currentSpell.casting)
+            {
+                currentSpell = null;
+                animation.lockAnimation = false;
+            }
         }
         if (Input.getLeft(playerID))
         {
@@ -66,14 +83,25 @@ class ControlableEntity extends BaseHealthEntity
         {
             velocity.y = -jumpForce;
         }
-        if (Input.getJump(playerID) && canSuperJump) // Jump
+        if (currentSpell == null)
         {
-            velocity.y = -jumpForce * 1.7;
-            canSuperJump = false;
-        }
-        if (Input.getCast(playerID)) // Attack
-        {
-            (currentSpell = attackGroundSpell).begin();
+            if (Input.getJump(playerID) && canSuperJump) // Jump
+            {
+                (currentSpell = jumpSpell).begin();
+                canSuperJump = false;
+            }
+            if (Input.getCast(playerID)) // Attack
+            {
+                if (grounded)
+                {
+                    lockPosition = true;
+                    (currentSpell = attackGroundSpell).begin();
+                }
+                else 
+                {
+                    (currentSpell = attackAirSpell).begin();
+                }
+            }
         }
     }
 
