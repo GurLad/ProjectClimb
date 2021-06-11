@@ -7,11 +7,19 @@ class BaseHealthEntity extends BaseAnimatedPhysicsEntity
         super.onCollide(collider);
         if ((collider is BaseProjectile) && collider.tags & tags & (EntityType.Player | EntityType.Enemy) == 0) // Has different tags, aka different player/enemy
         {
-            health -= (cast(collider, BaseProjectile)).damage;
-            if (health <= 0)
-            {
-                destroy();
-            }
+            takeDamage((cast(collider, BaseProjectile)).damage);
+            onHit(collider);
         }
     }
+
+    public function takeDamage(value : Int)
+    {
+        health -= value;
+        if (health <= 0)
+        {
+            destroy();
+        }
+    }
+
+    public function onHit(entity : Entity) {} // Virtual
 }

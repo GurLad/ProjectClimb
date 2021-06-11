@@ -7,6 +7,7 @@ class PlayerBuilder
         var map = new AnimationMap();
         map.addToMap(hxd.Res.Idle, "Idle");
         map.addToMap(hxd.Res.Walk, "Walk");
+        map.addToMap(hxd.Res.Hit, "Hit");
         map.addToMap(hxd.Res.CastGroundStart, "GroundAttackStart");
         map.addToMap(hxd.Res.CastGroundEnd, "GroundAttackEnd");
         var groundAttackSpell = (e : BaseAnimatedPhysicsEntity) ->
@@ -30,7 +31,7 @@ class PlayerBuilder
             pos,
             new Vector(64,64),
             new MutiAnimationRenderer(map, 32, "Idle"),
-            5, 5,
+            5, 5, 5,
             new Spell("GroundAttackStart", "GroundAttackEnd", groundAttackSpell),
             new Spell("GroundAttackStart", "GroundAttackEnd", airAttackSpell),
             new Spell("GroundAttackStart", "GroundAttackEnd", jumpSpell));

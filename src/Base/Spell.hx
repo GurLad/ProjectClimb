@@ -33,4 +33,11 @@ class Spell
             }
         }
     }
+
+    public function cancel()
+    {
+        preCasting = casting = false;
+        entity.animation.loop = true;
+        entity.animation.onAnimationEnd = () -> {};
+    }
 }

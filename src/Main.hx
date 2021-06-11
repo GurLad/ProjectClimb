@@ -6,6 +6,7 @@ import h2d.Text;
 import h2d.Scene;
 
 class Main extends hxd.App {
+    public static var TARGET_FPS(default, null) : Int = 60;
     public static var tilemapLayer : h2d.Object = new h2d.Object();
     public static var entityLayer : h2d.Object = new h2d.Object();
     public static var uiLayer : h2d.Object = new h2d.Object();
@@ -22,6 +23,7 @@ class Main extends hxd.App {
     override function init() {
         scene = s2d;
         hxd.Res.initEmbed();
+        Timer.wantedFPS = TARGET_FPS;
 
         // Set UI vs. Entities layers
 
@@ -58,8 +60,8 @@ class Main extends hxd.App {
         }
     }
     override function update(dt:Float) {
-        var timeScale = dt * 60;
-        fpsDisplay.text = "FPS: " + Math.round(Timer.fps()) + " / " + Timer.wantedFPS;
+        var timeScale = dt * TARGET_FPS;
+        fpsDisplay.text = "FPS: " + Math.round(Timer.fps()) + " / " + TARGET_FPS;
         delay -= dt;
         if (delay > 0)
         {

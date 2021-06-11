@@ -1,6 +1,6 @@
 class PhysicsEntity extends Entity
 {
-    private static var GRAVITY_SCALE(default, null) : Float = 9.81 / 60;
+    private static var GRAVITY_SCALE(default, null) : Float = 9.81 / Main.TARGET_FPS;
 
     public var velocity : Vector;
     public var useGravity : Bool = true;
