@@ -13,12 +13,13 @@ class PlayerBuilder
         var groundAttackSpell = (e : BaseAnimatedPhysicsEntity) ->
         {
             var trueE = cast(e, ControlableEntity);
-            new TempPlayerFireball(e.pos + e.size.xVector * trueE.direction, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(trueE.speed * trueE.direction, 0) * 2);
+            new PlayerFireball(
+                e.pos + e.size.xVector * trueE.direction,
+                trueE.speed * trueE.direction * 2, trueE.direction);
         }
         var airAttackSpell = (e : BaseAnimatedPhysicsEntity) ->
         {
-            var trueE = cast(e, ControlableEntity);
-            new TempPlayerFireball(e.pos + e.size.yVector, new Vector(5,5), new ColorRenderer(0xFF0000), new Vector(0, trueE.jumpForce) * 2);
+            new PlayerBoom(e);
         }
         var jumpSpell = (e : BaseAnimatedPhysicsEntity) ->
         {

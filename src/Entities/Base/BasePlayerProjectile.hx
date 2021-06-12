@@ -1,4 +1,4 @@
-class TempPlayerFireball extends BaseProjectile
+class BasePlayerProjectile extends BaseProjectile
 {
     override function get_tags():EntityType
     {

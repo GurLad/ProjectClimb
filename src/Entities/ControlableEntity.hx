@@ -12,7 +12,7 @@ class ControlableEntity extends BaseHealthEntity
     public var knockbackForce : Float = 5; // Var just in case someone will turn this into a Smash clone - technically const
 
     // Playtime data
-    public var direction : Int = 1;
+    public var direction : Int = -1;
     private var playerID : Int;
     private var canSuperJump : Bool;
     private var stunDuration : Float = 0;

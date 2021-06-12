@@ -28,6 +28,13 @@ class MutiAnimationRenderer implements IRenderer
         }
     }
 
+    public static function newSingleAnimation(source : hxd.res.Image, size : Int = 32, speed : Float = 10)
+    {
+        var map = new AnimationMap();
+        map.addToMap(source, "1", size);
+        return new MutiAnimationRenderer(map, size, "1", speed);
+    }
+
 	public function init(entity:Entity) {}
 
 	public function dispose()
