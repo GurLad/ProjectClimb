@@ -42,3 +42,5 @@ Day 19 (11/6):
 Snails can finally fight back! You can lose (aka the player is just destroyed)!
 Day 20 (12/6):
 Both ground and air spells now work completely (aka have graphics)! It feels like a true game at last. All I have to add is the jump (and probably more interesting enemies) and my initial vision is complete! I'm not sure whether to spend time adding more spells or more content. Hmm.
+Day 21 (13/6):
+I didn't have much time today, and only added a single animation & fixed a bug. So little time...

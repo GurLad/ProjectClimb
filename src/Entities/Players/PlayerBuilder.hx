@@ -10,6 +10,8 @@ class PlayerBuilder
         map.addToMap(hxd.Res.Hit, "Hit");
         map.addToMap(hxd.Res.CastGroundStart, "GroundAttackStart");
         map.addToMap(hxd.Res.CastGroundEnd, "GroundAttackEnd");
+        map.addToMap(hxd.Res.CastAirStart, "AirAttackStart");
+        map.addToMap(hxd.Res.CastAirEnd, "AirAttackEnd");
         var groundAttackSpell = (e : BaseAnimatedPhysicsEntity) ->
         {
             var trueE = cast(e, ControlableEntity);
@@ -34,7 +36,7 @@ class PlayerBuilder
             new MutiAnimationRenderer(map, 32, "Idle"),
             5, 5, 5,
             new Spell("GroundAttackStart", "GroundAttackEnd", groundAttackSpell),
-            new Spell("GroundAttackStart", "GroundAttackEnd", airAttackSpell),
-            new Spell("GroundAttackStart", "GroundAttackEnd", jumpSpell));
+            new Spell("AirAttackStart", "AirAttackEnd", airAttackSpell),
+            new Spell("AirAttackStart", "AirAttackEnd", jumpSpell));
     }
 }

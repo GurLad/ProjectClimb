@@ -121,7 +121,7 @@ class ControlableEntity extends BaseHealthEntity
 
     override function fixedUpdate(timeScale:Float)
     {
-        canSuperJump = canSuperJump || grounded;
+        canSuperJump = canSuperJump || (grounded && currentSpell == null);
     }
 
     override function onTilemapCollide() {
