@@ -15,7 +15,7 @@ class Input
     
     public static function getHop(player : Int) : Bool
     {
-        return Key.isPressed(player == 0 ? Key.UP : Key.W);
+        return Key.isDown(player == 0 ? Key.UP : Key.W);
     }
     
     public static function getJump(player : Int) : Bool
@@ -26,5 +26,20 @@ class Input
     public static function getCast(player : Int) : Bool
     {
         return Key.isPressed(player == 0 ? Key.NUMPAD_8 : Key.E);
+    }
+    
+    private static function getDown(player : Int) : Bool // Useless
+    {
+        return Key.isDown(player == 0 ? Key.DOWN : Key.S);
+    }
+    
+    public static function getAxisX(player : Int) : Int // Change to Float for controller support - until then, use Int
+    {
+        return getRight(player) ? 1 : (getLeft(player) ? -1 : 0);
+    }
+    
+    public static function getAxisY(player : Int) : Int
+    {
+        return getDown(player) ? 1 : (getHop(player) ? -1 : 0);
     }
 }

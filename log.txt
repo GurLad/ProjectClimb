@@ -44,3 +44,5 @@ Day 20 (12/6):
 Both ground and air spells now work completely (aka have graphics)! It feels like a true game at last. All I have to add is the jump (and probably more interesting enemies) and my initial vision is complete! I'm not sure whether to spend time adding more spells or more content. Hmm.
 Day 21 (13/6):
 I didn't have much time today, and only added a single animation & fixed a bug. So little time...
+Day 22 (14/6):
+I've finally added the Blink (teleport) spell!!! The whole basic gameplay is now done! And I actually have 6 days for content! Incredible.
