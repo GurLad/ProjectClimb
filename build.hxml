@@ -1,4 +1,5 @@
 -cp src\Base\Renderers
+-cp src\Base\UI
 -cp src\Base
 -cp src\Math
 -cp src\Entities\Base

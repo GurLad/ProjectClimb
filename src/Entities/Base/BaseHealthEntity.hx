@@ -1,6 +1,7 @@
 class BaseHealthEntity extends BaseAnimatedPhysicsEntity
 {
     public var health : Int;
+    public var onPostHit : () -> Void;
 
     override function onCollide(collider:Entity)
     {
@@ -21,5 +22,11 @@ class BaseHealthEntity extends BaseAnimatedPhysicsEntity
         }
     }
 
-    public function onHit(entity : Entity) {} // Virtual
+    public function onHit(entity : Entity)
+    {
+        if (onPostHit != null)
+        {
+            onPostHit();
+        }
+    }
 }

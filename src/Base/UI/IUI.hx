@@ -1,4 +1,7 @@
 class IUI extends h2d.Object
 {
-    public function init() {} // abstract
+    public function new()
+    {
+        super(Main.uiLayer);
+    }
 }

@@ -53,6 +53,7 @@ class LDtkController
         for (player in entityLayer.all_Player)
         {
             var newPlayer = PlayerBuilder.newBlunk(player.f_PlayerID, getEntityPos(player));
+            var lifebar = new UILifebar(newPlayer, levelSize.xVector * TRUE_TILE_SIZE + new Vector(0, 48 * player.f_PlayerID));
             // TEMP
             if (player.f_PlayerID == 0)
             {
