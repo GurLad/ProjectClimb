@@ -6,6 +6,7 @@ class MutiAnimationRenderer implements IRenderer
     private var playing : String;
     public var lockAnimation : Bool = false;
     public var flipX : Bool;
+    public var flipY : Bool;
     public var onAnimationEnd(null, set) : () -> Void;
     public function set_onAnimationEnd(value : () -> Void) : () -> Void
     {
@@ -45,9 +46,9 @@ class MutiAnimationRenderer implements IRenderer
 	public function render(pos:Vector, size:Vector)
     {
         renderer.x = pos.x + (flipX ? size.x : 0);
-        renderer.y = pos.y;
+        renderer.y = pos.y + (flipY ? size.y : 0);
         renderer.scaleX = size.x / baseSize * (flipX ? -1 : 1);
-        renderer.scaleY = size.y / baseSize;
+        renderer.scaleY = size.y / baseSize * (flipY ? -1 : 1);
     }
 
     public function play(name : String)

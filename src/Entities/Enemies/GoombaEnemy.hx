@@ -10,6 +10,7 @@ class GoombaEnemy extends BaseEnemy
         super(pos, size, renderer);
         this.direction = direction;
         this.speed = speed;
+        health = 1;
     }
 
     override function preUpdate(timeScale:Float) {

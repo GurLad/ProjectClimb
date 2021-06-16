@@ -11,4 +11,8 @@ class PlayerFireball extends BasePlayerProjectile
         renderer.init(this);
         useGravity = false;
     }
+
+    override function get_damage():Int {
+        return 2;
+    }
 }

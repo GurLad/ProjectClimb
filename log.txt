@@ -48,3 +48,5 @@ Day 22 (14/6):
 I've finally added the Blink (teleport) spell!!! The whole basic gameplay is now done! And I actually have 6 days for content! Incredible.
 Day 23 (15/6):
 I've used up a day for lifebars. It feels like a waste. I mean, the game would be borderline unplayable without them, but what about content? More enemies? Menu? Maybe tomorrow.
+Day 24 (16/6):
+Technically, I've made the water graphics & new music yesterday. Anyway, today I've added the water spells. Now I just need to add a spell select screen.

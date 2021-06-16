@@ -17,7 +17,7 @@ class Main extends hxd.App {
     }
     public static var SCREEN_SIZE(default, null) = new Vector(1280, 720);
     private static var scene : Scene;
-    private var delay : Float = 0;
+    private var delay : Float = 3;
     private var fpsDisplay : Text;
 
     override function init() {
@@ -51,7 +51,7 @@ class Main extends hxd.App {
         var musicResource:hxd.res.Sound = null;
         //If we support mp3 we have our sound
         if(hxd.res.Sound.supportedFormat(Wav)){
-            musicResource = cast(hxd.Res.TheForgotten, hxd.res.Sound);
+            musicResource = cast(hxd.Res.TheClimb, hxd.res.Sound);
         }  
 
         if(musicResource != null){

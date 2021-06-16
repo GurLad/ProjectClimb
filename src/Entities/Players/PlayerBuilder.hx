@@ -14,17 +14,8 @@ class PlayerBuilder
         map.addToMap(hxd.Res.CastAirEnd, "AirAttackEnd");
         map.addToMap(hxd.Res.BlinkStart, "JumpStart");
         map.addToMap(hxd.Res.BlinkEnd, "JumpEnd");
-        var groundAttackSpell = (e : BaseAnimatedPhysicsEntity) ->
-        {
-            var trueE = cast(e, ControlableEntity);
-            new PlayerFireball(
-                e.pos + e.size.xVector * trueE.direction,
-                trueE.speed * trueE.direction * 2, trueE.direction);
-        }
-        var airAttackSpell = (e : BaseAnimatedPhysicsEntity) ->
-        {
-            new PlayerBoom(e);
-        }
+        var groundAttackSpell = playerID == 0 ? groundWater : groundFire;
+        var airAttackSpell = playerID == 0 ? airWater : airFire;
         var jumpSpell = (e : BaseAnimatedPhysicsEntity) ->
         {
             var trueE = cast(e, ControlableEntity);
@@ -36,7 +27,6 @@ class PlayerBuilder
             var xRect, yRect, rect : Rectangle;
             xRect = trueE.rect.clone();
             yRect = trueE.rect.clone();
-            trace("Begin, velocity: ("+ trueE.velocity.x + ", " + trueE.velocity.y + ")");
             while (dist > 0 && trueE.velocity != Vector.ZERO)
             {
                 rect = trueE.rect.clone();
@@ -45,7 +35,6 @@ class PlayerBuilder
                 var oldP : GridPos = new GridPos(rect);
                 var newP : GridPos = GridPos.fromTwoRects(xRect, yRect);
                 var collided = trueE.checkAllTilemapCollisions(newP, oldP);
-                trace((collided ? "Collided, dir: (" : "Empty, dir: (") + trueE.velocity.x + ", " + trueE.velocity.y + "), dist: " + dist);
                 trueE.pos += trueE.velocity;
                 dist--;
             }
@@ -62,5 +51,53 @@ class PlayerBuilder
             new Spell("GroundAttackStart", "GroundAttackEnd", groundAttackSpell),
             new Spell("AirAttackStart", "AirAttackEnd", airAttackSpell),
             new Spell("JumpStart", "JumpEnd", jumpSpell));
+    }
+
+    private static function groundFire(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        new PlayerFireball(
+            e.pos + e.size.xVector / 2 * trueE.direction,
+            trueE.speed * trueE.direction * 2, trueE.direction);
+    }
+
+    private static function airFire(e : BaseAnimatedPhysicsEntity)
+    {
+        new PlayerBoom(e);
+    }
+
+    private static function groundWater(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        var pos : Vector = e.pos + e.size.xVector / 2 * trueE.direction;
+        var speed : Float = trueE.speed * 1.2;
+        var direction : Vector = new Vector(trueE.direction, 0);
+        for (i in -1...2)
+        {
+            direction.y = i;
+            new PlayerWaterball(pos, speed, direction.normalized);
+        }
+    }
+
+    private static function airWater(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        var pos : Vector = e.pos;
+        var speed : Float = trueE.speed * 1.2;
+        var size : Float = trueE.size.size / 2;
+        var direction : Vector = new Vector(0, 0);
+        for (i in -1...2)
+        {
+            for (j in -1...2)
+            {
+                if (i == 0 && j == 0)
+                {
+                    continue;
+                }
+                direction.y = i;
+                direction.x = j;
+                new PlayerWaterball(pos + direction.normalized * size, speed, direction.normalized);
+            }
+        }
     }
 }
