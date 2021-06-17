@@ -11,6 +11,7 @@ class CameraFollower extends Entity
         super(new Vector(0, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - Main.SCREEN_SIZE.y), Vector.ZERO, null);
         this.camera = camera;
         this.toFollow = toFollow;
+        camera.setPosition(toFollow.pos.x, toFollow.pos.y);
     }
 
     public override function render(timeScale : Float)

@@ -17,6 +17,11 @@ class MutiAnimationRenderer implements IRenderer
     {
         return renderer.loop = value;
     }
+    public var alpha(null, set) : Float;
+    public function set_alpha(value : Float) : Float
+    {
+        return renderer.alpha = value;
+    }
 
     public function new(animations : AnimationMap, animationSize : Int, initAnimation : String = null, speed : Float = 10)
     {

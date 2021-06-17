@@ -2,7 +2,7 @@ import EntityType;
 
 class Entity
 {
-    public static var entities(default, null) : List<Entity> = new List<Entity>();
+    public static var entities(default, null) : List<Entity> = new List<Entity>(); // Should've renamed to all, but too late now
     public static var TBA(default, null) : List<Entity> = new List<Entity>();
 
     public var pos : Vector;

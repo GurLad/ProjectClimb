@@ -17,10 +17,12 @@ class Main extends hxd.App {
     }
     public static var SCREEN_SIZE(default, null) = new Vector(1280, 720);
     private static var scene : Scene;
-    private var delay : Float = 3;
+    private static var currentMusic : hxd.res.Sound;
+    private var delay : Float = 0;
     private var fpsDisplay : Text;
 
-    override function init() {
+    override function init()
+    {
         scene = s2d;
         hxd.Res.initEmbed();
         Timer.wantedFPS = TARGET_FPS;
@@ -39,27 +41,13 @@ class Main extends hxd.App {
         fpsDisplay.textAlign = Left;
         uiLayer.addChild(fpsDisplay);
         
-        // Demo - move to a different file afterwards
+        // Load menu
 
-        // Known physics bugs:
-        // -If an entity moves too fast, it may end up on the other side of a block.
-        // -If an entity collides a tilemap block at the edge, the collision isn't detected.
-
-        LDtkController.loadLevel(1);
-        scene.camera.setPosition(0, LDtkController.levelSize.y * LDtkController.TRUE_TILE_SIZE - SCREEN_SIZE.y);
-
-        var musicResource:hxd.res.Sound = null;
-        //If we support mp3 we have our sound
-        if(hxd.res.Sound.supportedFormat(Wav)){
-            musicResource = cast(hxd.Res.TheClimb, hxd.res.Sound);
-        }  
-
-        if(musicResource != null){
-            //Play the music and loop it
-            musicResource.play(true);
-        }
+        LDtkController.loadLevel(0);
     }
-    override function update(dt:Float) {
+
+    override function update(dt:Float)
+    {
         var timeScale = dt * TARGET_FPS;
         fpsDisplay.text = "FPS: " + Math.round(Timer.fps()) + " / " + TARGET_FPS;
         delay -= dt;
@@ -96,7 +84,37 @@ class Main extends hxd.App {
             entity.cleanup();
         }
     }
-    static function main() {
+
+    static function main()
+    {
         new Main();
+    }
+
+    public static function clearScene()
+    {
+        for (e in Entity.entities)
+        {
+            e.destroy();
+            e.cleanup();
+        }
+        for (e in Entity.TBA)
+        {
+            e.destroy();
+            e.cleanup();
+        }
+        for (ui in IUI.all)
+        {
+            ui.remove();
+        }
+        tilemapLayer.removeChildren();
+    }
+
+    public static function playMusic(music : hxd.res.Sound)
+    {
+        if (currentMusic != null)
+        {
+            currentMusic.stop();
+        }
+        (currentMusic = music).play(true);
     }
 }

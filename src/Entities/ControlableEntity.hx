@@ -16,6 +16,7 @@ class ControlableEntity extends BaseHealthEntity
     private var playerID : Int;
     private var canSuperJump : Bool;
     private var stunDuration : Float = 0;
+    private static var players(default, never) : List<ControlableEntity> = new List<ControlableEntity>();
 
     // Spell data
     private var attackGroundSpell : Spell;
@@ -37,6 +38,7 @@ class ControlableEntity extends BaseHealthEntity
         this.attackAirSpell.entity = this;
         this.jumpSpell = jumpSpell;
         this.jumpSpell.entity = this;
+        players.add(this);
     }
 
     override function get_tags():EntityType
@@ -124,13 +126,14 @@ class ControlableEntity extends BaseHealthEntity
         canSuperJump = canSuperJump || (grounded && currentSpell == null);
     }
 
-    override function onTilemapCollide() {
+    override function onTilemapCollide()
+    {
         stunDuration = 0;
     }
 
     override function onCollide(collider:Entity)
     {
-        if (stunDuration > 0)
+        if (stunDuration > 0 || invincibilityDuration > 0)
         {
             return;
         }
@@ -140,10 +143,6 @@ class ControlableEntity extends BaseHealthEntity
             takeDamage((cast(collider, BaseEnemy)).damage);
             onHit(collider);
         }
-    }
-
-    override function takeDamage(value:Int) {
-        super.takeDamage(value);
     }
     
     override function onHit(entity:Entity)
@@ -163,5 +162,17 @@ class ControlableEntity extends BaseHealthEntity
         lockPosition = animation.lockAnimation = false;
         stunDuration = STUN_TIME;
         animation.play("Hit");
+    }
+
+    override function destroy() {
+        super.destroy();
+        if (!players.filter(f -> f == this).isEmpty())
+        {
+            players.remove(this);
+            if (players.isEmpty())
+            {
+                LDtkController.loadLevel(0);
+            }
+        }
     }
 }

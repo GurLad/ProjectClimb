@@ -28,7 +28,7 @@ class UILifebar
         {
             for (i in 0...maxHealth)
             {
-                lifeIcons[i].remove();
+                lifeIcons[i].setImage(hxd.Res.HeartEmpty);
             }
             return;
         }

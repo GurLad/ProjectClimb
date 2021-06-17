@@ -5,14 +5,24 @@ class LDtkController
     public static var TRUE_TILE_SIZE(default, never) : Int = SIZE_MOD * TILE_SIZE;
     public static var tileData : Array2D<Int>;
     public static var levelSize : Vector;
+    private static var project(default, never) : LDtk = new LDtk();
 
     public static function loadLevel(id : Int)
     {
-        var project = new LDtk();
+        // Clear previous level
+        Main.clearScene();
+
+        // Load new one
         switch (id)
         {
+            case 0: // Menu
+                new UIImage(Vector.ZERO, 2, hxd.Res.Menu);
+                new UIButton(new Vector(1280 / 2 - 112, 624), 2, hxd.Res.StartButton, () -> LDtkController.loadLevel(1));
+                new UIButton(new Vector(1280 / 2 - 112, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+                Main.playMusic(hxd.Res.TheClimb);
             case 1:
                 loadLevelData(project.all_levels.Level_1);
+                Main.playMusic(hxd.Res.TheForgotten);
             default:
                 return;
         }
@@ -44,6 +54,11 @@ class LDtkController
         Main.tilemapLayer.addChild( layerRender );
         levelSize = new Vector(level.l_BaseLayer.cWid, level.l_BaseLayer.cHei);
 
+        // UI
+        new UIImage(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE, 0), 2, hxd.Res.Panel);
+        new UIButton(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE + 16, 624), 2, hxd.Res.MenuButton, () -> LDtkController.loadLevel(0));
+        new UIButton(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE + 16, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+
         // Load entities
         var entityLayer = level.l_Entities;
         for (snail in entityLayer.all_SnailEnemy)
@@ -53,7 +68,7 @@ class LDtkController
         for (player in entityLayer.all_Player)
         {
             var newPlayer = PlayerBuilder.newBlunk(player.f_PlayerID, getEntityPos(player));
-            var lifebar = new UILifebar(newPlayer, levelSize.xVector * TRUE_TILE_SIZE + new Vector(0, 48 * player.f_PlayerID));
+            var lifebar = new UILifebar(newPlayer, levelSize.xVector * TRUE_TILE_SIZE + new Vector(16, 64 + 96 * player.f_PlayerID));
             // TEMP
             if (player.f_PlayerID == 0)
             {

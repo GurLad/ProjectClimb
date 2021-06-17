@@ -50,3 +50,5 @@ Day 23 (15/6):
 I've used up a day for lifebars. It feels like a waste. I mean, the game would be borderline unplayable without them, but what about content? More enemies? Menu? Maybe tomorrow.
 Day 24 (16/6):
 Technically, I've made the water graphics & new music yesterday. Anyway, today I've added the water spells. Now I just need to add a spell select screen.
+Day 25 (17/6):
+Project Climb is finally a complete, playable product! Besides having no content nor a win condition, it now has complete UI, a menu and a quit button. Three days for content, eh? And I want to add a boss too...
