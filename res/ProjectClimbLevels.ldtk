@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 43,
+	"nextUid": 45,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -713,6 +713,52 @@
 					"textLanguageMode": null
 				}
 			]
+		},
+		{
+			"identifier": "FlyingSnail",
+			"uid": 43,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#C194D9",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "FaceRight",
+					"__type": "Bool",
+					"uid": 44,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1280,6 +1326,37 @@
 								"__type": "Int",
 								"defUid": 42,
 								"realEditorValues": [{ "id": "V_Int", "params": [1] }]
+							}]
+						},
+						{
+							"__identifier": "FlyingSnail",
+							"__grid": [8,42],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 43,
+							"px": [272,1360],
+							"fieldInstances": [{ "__identifier": "FaceRight", "__value": false, "__type": "Bool", "defUid": 44, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "FlyingSnail",
+							"__grid": [6,54],
+							"__pivot": [0.5,0.5],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 43,
+							"px": [208,1744],
+							"fieldInstances": [{
+								"__identifier": "FaceRight",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 44,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
 							}]
 						}
 					]

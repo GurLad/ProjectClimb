@@ -32,7 +32,7 @@ class LDtkController
     {
         if (cx < 0 || cy < 0 || cx >= levelSize.x || cy >= levelSize.y)
         {
-            return false;
+            return true;
         }
         return tileData[cx][cy] == 1;
     }
@@ -64,6 +64,10 @@ class LDtkController
         for (snail in entityLayer.all_SnailEnemy)
         {
             EnemyBuilder.newSnail(getEntityPos(snail), snail.f_FaceRight);
+        }
+        for (snail in entityLayer.all_FlyingSnail)
+        {
+            EnemyBuilder.newFlyingSnail(getEntityPos(snail), snail.f_FaceRight);
         }
         for (player in entityLayer.all_Player)
         {

@@ -25,6 +25,7 @@ class Main extends hxd.App {
     {
         scene = s2d;
         hxd.Res.initEmbed();
+        hxd.Window.getInstance().title = "Project Climb";
         Timer.wantedFPS = TARGET_FPS;
 
         // Set UI vs. Entities layers

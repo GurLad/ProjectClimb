@@ -52,3 +52,4 @@ Day 24 (16/6):
 Technically, I've made the water graphics & new music yesterday. Anyway, today I've added the water spells. Now I just need to add a spell select screen.
 Day 25 (17/6):
 Project Climb is finally a complete, playable product! Besides having no content nor a win condition, it now has complete UI, a menu and a quit button. Three days for content, eh? And I want to add a boss too...
+I've also added flying snails (albeit with no graphics yet) - which means I can (relatively) comfortly spend the last three days on the boss.
