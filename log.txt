@@ -53,3 +53,6 @@ Technically, I've made the water graphics & new music yesterday. Anyway, today I
 Day 25 (17/6):
 Project Climb is finally a complete, playable product! Besides having no content nor a win condition, it now has complete UI, a menu and a quit button. Three days for content, eh? And I want to add a boss too...
 I've also added flying snails (albeit with no graphics yet) - which means I can (relatively) comfortly spend the last three days on the boss.
+Day 26 (18/6):
+I've added the boss! It's just a giant, fast snail. This is the lamest boss I've ever made, but who cares. It's a boss!
+Anyway, the game now has a win condition and a single, complete leve. In the remaining two days, I'll need to add a magic select screen, win screen, hopefully make an actual boss, and maybe even more spells.

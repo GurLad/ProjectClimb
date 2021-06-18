@@ -12,11 +12,11 @@ class ControlableEntity extends BaseHealthEntity
     public var knockbackForce : Float = 5; // Var just in case someone will turn this into a Smash clone - technically const
 
     // Playtime data
+    public static var players(default, never) : List<ControlableEntity> = new List<ControlableEntity>();
     public var direction : Int = -1;
     private var playerID : Int;
     private var canSuperJump : Bool;
     private var stunDuration : Float = 0;
-    private static var players(default, never) : List<ControlableEntity> = new List<ControlableEntity>();
 
     // Spell data
     private var attackGroundSpell : Spell;

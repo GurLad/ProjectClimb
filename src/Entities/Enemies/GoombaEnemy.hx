@@ -13,12 +13,16 @@ class GoombaEnemy extends BaseEnemy
         health = 1;
     }
 
-    override function preUpdate(timeScale:Float) {
+    override function preUpdate(timeScale:Float)
+    {
+        super.preUpdate(timeScale);
         velocity.x = direction * speed;
         animation.flipX = direction > 0;
     }
 
-    override function fixedUpdate(timeScale:Float) {
+    override function fixedUpdate(timeScale:Float)
+    {
+        super.preUpdate(timeScale);
         if (velocity.x == 0)
         {
             direction *= -1;

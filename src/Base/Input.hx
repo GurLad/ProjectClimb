@@ -20,12 +20,12 @@ class Input
     
     public static function getJump(player : Int) : Bool
     {
-        return Key.isPressed(player == 0 ? Key.NUMPAD_4 : Key.Q);
+        return Key.isPressed(player == 0 ? Key.NUMPAD_8 : Key.H);
     }
     
     public static function getCast(player : Int) : Bool
     {
-        return Key.isPressed(player == 0 ? Key.NUMPAD_8 : Key.E);
+        return Key.isPressed(player == 0 ? Key.NUMPAD_4 : Key.G);
     }
     
     private static function getDown(player : Int) : Bool // Useless

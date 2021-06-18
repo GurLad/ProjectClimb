@@ -1,25 +1,25 @@
 class UILifebar
 {
     private static var OFFSET(default, never) : Int = 48;
+    private static var MAX_PER_ROW(default, never) : Int = 5;
 
     private var lifeIcons : Array<UIImage> = new Array<UIImage>();
     private var lastHealth : Int;
     private var maxHealth : Int;
     private var entity : BaseHealthEntity;
 
-    public function new(entity : BaseHealthEntity, basePos : Vector)
+    public function new(entity : BaseHealthEntity, basePos : Vector, heartFull : hxd.res.Image)
     {
         this.entity = entity;
         maxHealth = lastHealth = entity.health;
         for (i in 0...maxHealth)
         {
             lifeIcons.push(new UIImage(
-                basePos + new Vector(OFFSET * i, 0),
+                basePos + new Vector(OFFSET * Math.floor(i % MAX_PER_ROW), OFFSET * Math.floor(i / MAX_PER_ROW)),
                 LDtkController.SIZE_MOD,
-                hxd.Res.HeartFull));
+                heartFull));
         }
         entity.onPostHit = updateBar;
-        trace("a");
     }
 
     private function updateBar()

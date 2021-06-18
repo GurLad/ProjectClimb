@@ -3,12 +3,12 @@ Co-op platformer. Goal: make a complete game from scratch in exactly 1 month (re
 ### Controls (rebinding TBA)
  - Player 1: Move with arrows. Hop with up. Attack (magic) with numpad 8. Super Jump (teleport) with numpad 8.
  - Player 2: Move with AD. Hop with W. Attack (magic) with E. Super Jump (teleport) with Q.
-### TODO (last updated 14/6/21)
+### TODO (last updated 18/6/21)
  - ~~Make a basic 2D engine (because I'm a masochist)~~ (done)
  - ~~Make basic platformer controls + physics (both players)~~ (done)
  - ~~Add LDtk support~~ (done)
- - Add enemies (1 so far)
+ - ~~Add enemies~~ (done (2))
  - ~~Add all controls~~ (done)
  - Add character+magic select
  - Add levels
- - Add menu + UI
+ - ~~Add menu + UI~~ (done)
