@@ -153,6 +153,15 @@ class ControlableEntity extends BaseHealthEntity
         {
             dir.y = 1;
         }
+        var gridPos = new GridPos(rect);
+        if (LDtkController.hasCollision(gridPos.cx - Math.ceil(dir.x), gridPos.cy))
+        {
+            dir.x *= -1;
+        }
+        if (LDtkController.hasCollision(gridPos.cx, gridPos.cy - Math.ceil(dir.y)))
+        {
+            dir.y *= -1;
+        }
         velocity = dir * -knockbackForce;
         if (currentSpell != null)
         {

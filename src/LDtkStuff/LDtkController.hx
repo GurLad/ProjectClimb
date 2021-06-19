@@ -3,6 +3,7 @@ class LDtkController
     public static var SIZE_MOD(default, never) : Int = 2;
     public static var TILE_SIZE(default, never) : Int = 32;
     public static var TRUE_TILE_SIZE(default, never) : Int = SIZE_MOD * TILE_SIZE;
+    private static var NUM_LEVELS(default, never) : Int = 3;
     public static var tileData : Array2D<Int>;
     public static var levelSize : Vector;
     private static var project(default, never) : LDtk = new LDtk();
@@ -20,10 +21,17 @@ class LDtkController
                 new UIImage(Vector.ZERO, 2, hxd.Res.Menu);
                 new UIButton(new Vector(1280 / 2 - 112, 624), 2, hxd.Res.StartButton, () -> LDtkController.loadLevel(1));
                 new UIButton(new Vector(1280 / 2 - 112, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+                new UISpellSelect(new Vector(1280 / 2 - 112 * 3, 672), 2, 0);
+                new UISpellSelect(new Vector(1280 / 2 + 112, 672), 2, 1);
                 Main.playMusic(hxd.Res.TheClimb);
             case 1:
                 loadLevelData(project.all_levels.Level_1);
                 Main.playMusic(hxd.Res.TheForgotten);
+            case 2: // Win screen - only one level :(
+                new UIImage(Vector.ZERO, 2, hxd.Res.Win);
+                new UIButton(new Vector(1280 / 2 - 112, 624), 2, hxd.Res.MenuButton, () -> LDtkController.loadLevel(0));
+                new UIButton(new Vector(1280 / 2 - 112, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+                Main.playMusic(hxd.Res.TheClimb);
             default:
                 return;
         }
@@ -31,7 +39,7 @@ class LDtkController
 
     public static function loadNextLevel()
     {
-        loadLevel((currentLevel + 1) % 2);
+        loadLevel((currentLevel + 1) % NUM_LEVELS);
     }
 
     public static function hasCollision(cx : Int, cy : Int) : Bool

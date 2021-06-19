@@ -2,6 +2,10 @@ import MultiAnimationRenderer.MutiAnimationRenderer;
 
 class PlayerBuilder
 {
+    public static var playerSpells(default, never) : Array<Int> = [0, 0]; // Should replace with saved data
+    private static var groundSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [groundFire, groundWater];
+    private static var airSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [airFire, airWater];
+
     public static function newBlunk(playerID : Int, pos : Vector) : ControlableEntity
     {
         var map = new AnimationMap();
@@ -14,8 +18,8 @@ class PlayerBuilder
         map.addToMap(hxd.Res.CastAirEnd, "AirAttackEnd");
         map.addToMap(hxd.Res.BlinkStart, "JumpStart");
         map.addToMap(hxd.Res.BlinkEnd, "JumpEnd");
-        var groundAttackSpell = playerID == 0 ? groundWater : groundFire;
-        var airAttackSpell = playerID == 0 ? airWater : airFire;
+        var groundAttackSpell = groundSpells[playerSpells[playerID]];
+        var airAttackSpell = airSpells[playerSpells[playerID]];
         var jumpSpell = (e : BaseAnimatedPhysicsEntity) ->
         {
             var trueE = cast(e, ControlableEntity);

@@ -112,6 +112,10 @@ class Main extends hxd.App {
 
     public static function playMusic(music : hxd.res.Sound)
     {
+        if (currentMusic == music)
+        {
+            return;
+        }
         if (currentMusic != null)
         {
             currentMusic.stop();

@@ -35,6 +35,10 @@ class BaseHealthEntity extends BaseAnimatedPhysicsEntity
         {
             takeDamage((cast(collider, BaseProjectile)).damage);
             onHit(collider);
+            if (!dead)
+            {
+                collider.destroy();
+            }
         }
     }
 

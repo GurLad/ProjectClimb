@@ -56,3 +56,5 @@ I've also added flying snails (albeit with no graphics yet) - which means I can 
 Day 26 (18/6):
 I've added the boss! It's just a giant, fast snail. This is the lamest boss I've ever made, but who cares. It's a boss!
 Anyway, the game now has a win condition and a single, complete leve. In the remaining two days, I'll need to add a magic select screen, win screen, hopefully make an actual boss, and maybe even more spells.
+Day 27 (19/6):
+That's it - I've added the win screen, a magic select, and even made the boss slightly interesting! Had I more time, I would've added more playable characters, more spells, and most importantly - more enemies & levels. Tommorrow I won't hace much time, and will probably only add keybinding and an executable version. But that's all right - I'm really happy with the end product, regardless of the low amount of content.
