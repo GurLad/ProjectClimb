@@ -11,7 +11,6 @@ class UIKeybindButton extends UIButton
         this.playerID = playerID;
         switch (inputType)
         {
-
             case Jump:
                 text.text = hxd.Key.getKeyName(Input.jumpButton[playerID]);
             case Cast:
@@ -29,9 +28,9 @@ class UIKeybindButton extends UIButton
                 switch (inputType)
                 {
                     case Jump:
-                        Input.castButton[playerID] = event.keyCode;
-                    case Cast:
                         Input.jumpButton[playerID] = event.keyCode;
+                    case Cast:
+                        Input.castButton[playerID] = event.keyCode;
                 }
                 text.text = hxd.Key.getKeyName(event.keyCode);
                 binding = false;
