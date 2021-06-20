@@ -14,9 +14,9 @@ class ControlableEntity extends BaseHealthEntity
     // Playtime data
     public static var players(default, never) : List<ControlableEntity> = new List<ControlableEntity>();
     public var direction : Int = -1;
+    public var stunDuration : Float = 0;
     private var playerID : Int;
     private var canSuperJump : Bool;
-    private var stunDuration : Float = 0;
 
     // Spell data
     private var attackGroundSpell : Spell;
@@ -49,11 +49,6 @@ class ControlableEntity extends BaseHealthEntity
     public override function preUpdate(timeScale:Float)
     {
         super.preUpdate(timeScale);
-        if (stunDuration > 0)
-        {
-            stunDuration -= timeScale / Main.TARGET_FPS;
-            return;
-        }
         if (currentSpell != null)
         {
             if (currentSpell.preCasting)
@@ -70,6 +65,11 @@ class ControlableEntity extends BaseHealthEntity
                 currentSpell = null;
                 animation.lockAnimation = false;
             }
+        }
+        if (stunDuration > 0)
+        {
+            stunDuration -= timeScale / Main.TARGET_FPS;
+            return;
         }
         if (Input.getLeft(playerID))
         {

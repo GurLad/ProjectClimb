@@ -3,8 +3,8 @@ import MultiAnimationRenderer.MutiAnimationRenderer;
 class PlayerBuilder
 {
     public static var playerSpells(default, never) : Array<Int> = [0, 0]; // Should replace with saved data
-    private static var groundSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [groundFire, groundWater];
-    private static var airSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [airFire, airWater];
+    private static var groundSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [groundFire, groundWater, groundAir];
+    private static var airSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [airFire, airWater, airAir];
 
     public static function newBlunk(playerID : Int, pos : Vector) : ControlableEntity
     {
@@ -103,5 +103,21 @@ class PlayerBuilder
                 new PlayerWaterball(pos + direction.normalized * size, speed, direction.normalized);
             }
         }
+    }
+
+    private static function groundAir(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        new PlayerAirBoom(e.pos + e.size.xVector / 2 * trueE.direction);
+        trueE.velocity.x = trueE.speed * 2 * -trueE.direction;
+        trueE.velocity.y = Math.min(-trueE.jumpForce / 5, trueE.velocity.y);
+        trueE.stunDuration = 0.1;
+    }
+
+    private static function airAir(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        new PlayerAirBoom(e.pos + e.size.yVector / 2);
+        trueE.velocity.y = -trueE.jumpForce;
     }
 }
