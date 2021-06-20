@@ -1,5 +1,5 @@
 Day 0 (20/5):
-Setting up the dev enviornment (VSCode) and installing all required libraries.
+Setting up the dev environment (VSCode) and installing all required libraries.
 Day 1 (21/5):
 I've spent 2 hours creating a basic engine & logic (Vectors, Rectangles, Entities, Renderers, Game loop). I have a white cube, like Blender! I already hate Haxe - no function overloading, weird operator overloading, no normal abstract classes, no protected... Oh well.
 Day 2 (22/5):
@@ -8,7 +8,7 @@ Day 3 (23/5):
 Turns out the physics bug was because I used overlapsX instead of overlapsY to determine Y collisions. Oops. I began a rework for nothing. Anyway, these things are mostly irrelevant, as most collisions will be Trigger anyway. And yet, I wasted ~1.5 days on this. Oh well. Should add LDtk support next.
 (Also, the first time I build each time, the physics break for no apparent reason (and work properly every time once I rerun it). Why, Haxe?)
 Day 4 (24/5):
-I added a player-controlled character. Using keyboard input is pretty easy, and it was really nice finally making use of my systems. Like always, however, I began with fixing physics bugs. Oof. Also, apperantly my laptop refuses to run anything at over 30 FPS unless it's being charged. Why, laptop?
+I added a player-controlled character. Using keyboard input is pretty easy, and it was really nice finally making use of my systems. Like always, however, I began with fixing physics bugs. Oof. Also, apparently my laptop refuses to run anything at over 30 FPS unless it's being charged. Why, laptop?
 Day 5 (25/5):
 I added basic enemy & projectile logic. I also fixed some bugs, and removed PhysicsEntity+PhysicsEntity collision, because it was buggy. Things are going along well, but I need to start making graphics now.
 Day 6 (26/5):
@@ -29,13 +29,13 @@ Finally fixed the tilemap collisions! I've also added onTilemapCollision - mostl
 Day 13 (4/6):
 Added CameraFollower. It gives me slight motion sickness - too many lerps perhaps? I'll need to add more animations to make sure.
 Day 14 (5/6):
-I've added some basic goomba-like enemies. I'm progressing at a snail's pace, so I made them snails. The animation is temporary. I still need to add full player animations, actual attacks & super jump, fix some physics bugs, add another player, more enemis, and so on. Only 15 days left...
+I've added some basic goomba-like enemies. I'm progressing at a snail's pace, so I made them snails. The animation is temporary. I still need to add full player animations, actual attacks & super jump, fix some physics bugs, add another player, more enemies, and so on. Only 15 days left...
 Day 15 (6/6):
 Wow, I finally got to make use of my flexible code base. I easily added multiplayer & LDtk entity loading support, in addition to creating a new enemy animation. I actually have a chance to make something decent in the end. I hope.
 Day 16 (7/6):
 After way too much time, I've finally made a bad walking animation. Hate walking animations. Other than that, I've also added the Super Jump & Cast input logic.
 Day 17 (8/6):
-I've added spell casting (aka attack+jump) logic. It should make it pretty easy to add more spells in the future, as long as they aren't continous.
+I've added spell casting (aka attack+jump) logic. It should make it pretty easy to add more spells in the future, as long as they aren't continuous.
 Day 18 (10/6):
 It might be pointless, as I probably won't have time to add more levels, but I made the level loading generic. I've also changed the Jump and Air Attack actions to use spells. It's almost Smash-like now!
 Day 19 (11/6):
@@ -52,11 +52,12 @@ Day 24 (16/6):
 Technically, I've made the water graphics & new music yesterday. Anyway, today I've added the water spells. Now I just need to add a spell select screen.
 Day 25 (17/6):
 Project Climb is finally a complete, playable product! Besides having no content nor a win condition, it now has complete UI, a menu and a quit button. Three days for content, eh? And I want to add a boss too...
-I've also added flying snails (albeit with no graphics yet) - which means I can (relatively) comfortly spend the last three days on the boss.
+I've also added flying snails (albeit with no graphics yet) - which means I can (relatively) comfortably spend the last three days on the boss.
 Day 26 (18/6):
 I've added the boss! It's just a giant, fast snail. This is the lamest boss I've ever made, but who cares. It's a boss!
-Anyway, the game now has a win condition and a single, complete leve. In the remaining two days, I'll need to add a magic select screen, win screen, hopefully make an actual boss, and maybe even more spells.
+Anyway, the game now has a win condition and a single, complete level. In the remaining two days, I'll need to add a magic select screen, win screen, hopefully make an actual boss, and maybe even more spells.
 Day 27 (19/6):
-That's it - I've added the win screen, a magic select, and even made the boss slightly interesting! Had I more time, I would've added more playable characters, more spells, and most importantly - more enemies & levels. Tommorrow I won't hace much time, and will probably only add keybinding and an executable version. But that's all right - I'm really happy with the end product, regardless of the low amount of content.
+That's it - I've added the win screen, a magic select, and even made the boss slightly interesting! Had I more time, I would've added more playable characters, more spells, and most importantly - more enemies & levels. Tomorrow I won't have much time, and will probably only add keybinding and an executable version. But that's all right - I'm really happy with the end product, regardless of the low amount of content.
 Day 28 (20/6):
-TBA
+This is it. The final version. I've added keybindings, reworked the buttons to use text (an essential feature, I know), and added air & earth spells. I think they're a bit too gimmicky, but hey, I'm really having fun with this game. It's so easy to add wacky spells in a few minutes.
+Anyway, I'm done now. To be honest, if not for Frogman Gaiden, I would've probably continued working on this and made a full game. Maybe after Frogman. It was still an excellent learning experience.

@@ -3,8 +3,8 @@ import MultiAnimationRenderer.MutiAnimationRenderer;
 class PlayerBuilder
 {
     public static var playerSpells(default, never) : Array<Int> = [0, 0]; // Should replace with saved data
-    private static var groundSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [groundFire, groundWater, groundAir];
-    private static var airSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [airFire, airWater, airAir];
+    private static var groundSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [groundFire, groundWater, groundAir, groundEarth];
+    private static var airSpells(default, never) : Array<(e : BaseAnimatedPhysicsEntity) -> Void> = [airFire, airWater, airAir, airEarth];
 
     public static function newBlunk(playerID : Int, pos : Vector) : ControlableEntity
     {
@@ -18,6 +18,7 @@ class PlayerBuilder
         map.addToMap(hxd.Res.CastAirEnd, "AirAttackEnd");
         map.addToMap(hxd.Res.BlinkStart, "JumpStart");
         map.addToMap(hxd.Res.BlinkEnd, "JumpEnd");
+        map.addToMap(hxd.Res.BlunkStone, "RockForm");
         var groundAttackSpell = groundSpells[playerSpells[playerID]];
         var airAttackSpell = airSpells[playerSpells[playerID]];
         var jumpSpell = (e : BaseAnimatedPhysicsEntity) ->
@@ -119,5 +120,22 @@ class PlayerBuilder
         var trueE = cast(e, ControlableEntity);
         new PlayerAirBoom(e.pos + e.size.yVector / 2);
         trueE.velocity.y = -trueE.jumpForce;
+    }
+
+    private static function groundEarth(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        new PlayerRock(
+            e.pos + e.size.xVector * trueE.direction,
+            trueE.speed * trueE.direction * 1.2, trueE.direction);
+    }
+
+    private static function airEarth(e : BaseAnimatedPhysicsEntity)
+    {
+        var trueE = cast(e, ControlableEntity);
+        trueE.velocity = Vector.ZERO;
+        trueE.animation.play("RockForm");
+        trueE.stunDuration = 3;
+        new PlayerRockForm(trueE);
     }
 }

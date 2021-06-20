@@ -23,7 +23,6 @@ class Spell
         entity.animation.play(startAnimation);
         entity.animation.onAnimationEnd = () ->
         {
-            onAnimationEnd(entity);
             preCasting = false;
             entity.animation.play(endAnimation);
             entity.animation.onAnimationEnd = () ->
@@ -31,6 +30,7 @@ class Spell
                 casting = false;
                 entity.animation.loop = true;
             }
+            onAnimationEnd(entity);
         }
     }
 

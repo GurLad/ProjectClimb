@@ -4,7 +4,7 @@ class BaseHealthEntity extends BaseAnimatedPhysicsEntity
 
     public var health : Int;
     public var onPostHit : () -> Void;
-    private var invincibilityDuration : Float = 0;
+    public var invincibilityDuration : Float = 0;
 
     override function preUpdate(timeScale:Float)
     {

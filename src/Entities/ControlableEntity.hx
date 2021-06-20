@@ -15,8 +15,8 @@ class ControlableEntity extends BaseHealthEntity
     public static var players(default, never) : List<ControlableEntity> = new List<ControlableEntity>();
     public var direction : Int = -1;
     public var stunDuration : Float = 0;
+    public var canSuperJump : Bool;
     private var playerID : Int;
-    private var canSuperJump : Bool;
 
     // Spell data
     private var attackGroundSpell : Spell;

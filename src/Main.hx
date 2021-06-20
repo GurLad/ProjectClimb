@@ -111,6 +111,6 @@ class Main extends hxd.App {
         {
             currentMusic.stop();
         }
-        //(currentMusic = music).play(true);
+        (currentMusic = music).play(true);
     }
 }

@@ -22,7 +22,7 @@ class GoombaEnemy extends BaseEnemy
 
     override function fixedUpdate(timeScale:Float)
     {
-        super.preUpdate(timeScale);
+        super.fixedUpdate(timeScale);
         if (velocity.x == 0)
         {
             direction *= -1;

@@ -25,10 +25,10 @@ class LDtkController
                 new UIButton(new Vector(1280 / 2 - 112, 672), 2, "Quit", () -> hxd.System.exit());
                 new UISpellSelect(new Vector(1280 / 2 - 112 * 3, 672), 2, 0);
                 new UISpellSelect(new Vector(1280 / 2 + 112, 672), 2, 1);
-                new UIKeybindButton(new Vector(0, 0), 2, hxd.Res.Button, 0, InputType.Jump);
-                new UIKeybindButton(new Vector(0, 48), 2, hxd.Res.Button, 0, InputType.Cast);
-                new UIKeybindButton(new Vector(0, 96), 2, hxd.Res.Button, 1, InputType.Jump);
-                new UIKeybindButton(new Vector(0, 144), 2, hxd.Res.Button, 1, InputType.Cast);
+                new UIKeybindButton(new Vector(16, 64), 2, hxd.Res.Button, 0, InputType.Jump);
+                new UIKeybindButton(new Vector(16, 128), 2, hxd.Res.Button, 0, InputType.Cast);
+                new UIKeybindButton(new Vector(16, 192), 2, hxd.Res.Button, 1, InputType.Jump);
+                new UIKeybindButton(new Vector(16, 256), 2, hxd.Res.Button, 1, InputType.Cast);
                 Main.playMusic(hxd.Res.TheClimb);
             case 1:
                 loadLevelData(project.all_levels.Level_1);
