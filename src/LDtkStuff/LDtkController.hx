@@ -1,3 +1,5 @@
+import UIKeybingButton.UIKeybindButton;
+
 class LDtkController
 {
     public static var SIZE_MOD(default, never) : Int = 2;
@@ -19,18 +21,22 @@ class LDtkController
         {
             case 0: // Menu
                 new UIImage(Vector.ZERO, 2, hxd.Res.Menu);
-                new UIButton(new Vector(1280 / 2 - 112, 624), 2, hxd.Res.StartButton, () -> LDtkController.loadLevel(1));
-                new UIButton(new Vector(1280 / 2 - 112, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+                new UIButton(new Vector(1280 / 2 - 112, 624), 2, "Start", () -> LDtkController.loadLevel(1));
+                new UIButton(new Vector(1280 / 2 - 112, 672), 2, "Quit", () -> hxd.System.exit());
                 new UISpellSelect(new Vector(1280 / 2 - 112 * 3, 672), 2, 0);
                 new UISpellSelect(new Vector(1280 / 2 + 112, 672), 2, 1);
+                new UIKeybindButton(new Vector(0, 0), 2, hxd.Res.Button, 0, InputType.Jump);
+                new UIKeybindButton(new Vector(0, 48), 2, hxd.Res.Button, 0, InputType.Cast);
+                new UIKeybindButton(new Vector(0, 96), 2, hxd.Res.Button, 1, InputType.Jump);
+                new UIKeybindButton(new Vector(0, 144), 2, hxd.Res.Button, 1, InputType.Cast);
                 Main.playMusic(hxd.Res.TheClimb);
             case 1:
                 loadLevelData(project.all_levels.Level_1);
                 Main.playMusic(hxd.Res.TheForgotten);
             case 2: // Win screen - only one level :(
                 new UIImage(Vector.ZERO, 2, hxd.Res.Win);
-                new UIButton(new Vector(1280 / 2 - 112, 624), 2, hxd.Res.MenuButton, () -> LDtkController.loadLevel(0));
-                new UIButton(new Vector(1280 / 2 - 112, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+                new UIButton(new Vector(1280 / 2 - 112, 624), 2, "Menu", () -> LDtkController.loadLevel(0));
+                new UIButton(new Vector(1280 / 2 - 112, 672), 2, "Quit", () -> hxd.System.exit());
                 Main.playMusic(hxd.Res.TheClimb);
             default:
                 return;
@@ -70,8 +76,8 @@ class LDtkController
 
         // UI
         new UIImage(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE, 0), 2, hxd.Res.Panel);
-        new UIButton(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE + 16, 624), 2, hxd.Res.MenuButton, () -> LDtkController.loadLevel(0));
-        new UIButton(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE + 16, 672), 2, hxd.Res.QuitButton, () -> hxd.System.exit());
+        new UIButton(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE + 16, 624), 2, "Menu", () -> LDtkController.loadLevel(0));
+        new UIButton(new Vector(LDtkController.levelSize.x * LDtkController.TRUE_TILE_SIZE + 16, 672), 2, "Quit", () -> hxd.System.exit());
 
         // Load entities
         var entityLayer = level.l_Entities;

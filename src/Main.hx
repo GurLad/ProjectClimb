@@ -33,14 +33,6 @@ class Main extends hxd.App {
         scene.addChildAt(uiLayer, 2);
         scene.addChildAt(entityLayer, 1);
         scene.addChildAt(tilemapLayer, 0);
-
-        // FPS display
-
-        var font : h2d.Font = hxd.res.DefaultFont.get();
-        fpsDisplay = new h2d.Text(font);
-        fpsDisplay.text = "FPS: ";
-        fpsDisplay.textAlign = Left;
-        uiLayer.addChild(fpsDisplay);
         
         // Load menu
 
@@ -50,7 +42,6 @@ class Main extends hxd.App {
     override function update(dt:Float)
     {
         var timeScale = dt * TARGET_FPS;
-        fpsDisplay.text = "FPS: " + Math.round(Timer.fps()) + " / " + TARGET_FPS;
         delay -= dt;
         if (delay > 0)
         {
@@ -120,6 +111,6 @@ class Main extends hxd.App {
         {
             currentMusic.stop();
         }
-        (currentMusic = music).play(true);
+        //(currentMusic = music).play(true);
     }
 }

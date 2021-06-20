@@ -1,7 +1,7 @@
 class UISpellSelect extends UIButton
 {
     private static var NUM_SPELLS(default, never) = 2;
-    private var buttons : Array<hxd.res.Image> = [hxd.Res.FireButton, hxd.Res.WaterButton];
+    private var buttons : Array<String> = ["Fire", "Water"];
 
     public function new(pos : Vector, sizeMod : Int, playerID : Int)
     {
@@ -11,6 +11,6 @@ class UISpellSelect extends UIButton
     private function nextSpell(playerID : Int)
     {
         PlayerBuilder.playerSpells[playerID] = (PlayerBuilder.playerSpells[playerID] + 1) % NUM_SPELLS;
-        setImage(buttons[PlayerBuilder.playerSpells[playerID]]);
+        text.text = buttons[PlayerBuilder.playerSpells[playerID]];
     }
 }

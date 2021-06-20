@@ -148,21 +148,75 @@ class ControlableEntity extends BaseHealthEntity
     override function onHit(entity:Entity)
     {
         super.onHit(entity);
-        var dir = new Vector((entity.pos - pos).xVector.normalized.x, (entity.pos - pos).yVector.normalized.y).normalized;
+        var dir = new Vector((pos - entity.pos).xVector.normalized.x, (pos - entity.pos).yVector.normalized.y).normalized;
         if (dir.y == 0)
         {
             dir.y = 1;
         }
-        var gridPos = new GridPos(rect);
-        if (LDtkController.hasCollision(gridPos.cx - Math.ceil(dir.x), gridPos.cy))
+        // Fixing players getting stuck in walls - this is an extreme overkill, but I just hate that bug
+        size -= new Vector(0.4, 0.4); // Bad fix for getting into tight corridors
+        var targetRect = rect.clone();
+        var temp = dir.y;
+        dir.y = 0;
+        targetRect.topLeft += dir * knockbackForce;
+        var gridPos = new GridPos(targetRect);
+        if (dir.x != 0)
         {
-            dir.x *= -1;
+            for (i in 0...(gridPos.ty + 1))
+            {
+                if (LDtkController.hasCollision(gridPos.cx + (dir.x > 0 ? (gridPos.tx) : 0), gridPos.cy + i))
+                {
+                    dir.x *= -1;
+                    targetRect = rect.clone();
+                    targetRect.topLeft += dir * knockbackForce;
+                    gridPos = new GridPos(targetRect);
+                    for (i in 0...(gridPos.ty + 1))
+                    {
+                        if (LDtkController.hasCollision(gridPos.cx + (dir.x > 0 ? (gridPos.tx) : 0), gridPos.cy + i))
+                        {
+                            dir.x = 0;
+                            targetRect = rect.clone();
+                            targetRect.topLeft += dir * knockbackForce;
+                            gridPos = new GridPos(targetRect);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
-        if (LDtkController.hasCollision(gridPos.cx, gridPos.cy - Math.ceil(dir.y)))
+        dir.y = temp;
+        targetRect = rect.clone();
+        targetRect.topLeft += dir * knockbackForce;
+        gridPos = new GridPos(targetRect);
+        if (dir.y != 0)
         {
-            dir.y *= -1;
+            for (i in 0...(gridPos.tx + 1))
+            {
+                if (LDtkController.hasCollision(gridPos.cx + i, gridPos.cy + (dir.y > 0 ? (gridPos.ty) : 0)))
+                {
+                    dir.y *= -1;
+                    targetRect = rect.clone();
+                    targetRect.topLeft += dir * knockbackForce;
+                    gridPos = new GridPos(targetRect);
+                    for (i in 0...(gridPos.tx + 1))
+                    {
+                        if (LDtkController.hasCollision(gridPos.cx + i, gridPos.cy + (dir.y > 0 ? (gridPos.ty) : 0)))
+                        {
+                            dir.y = 0;
+                            targetRect = rect.clone();
+                            targetRect.topLeft += dir * knockbackForce;
+                            gridPos = new GridPos(targetRect);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
-        velocity = dir * -knockbackForce;
+        size += new Vector(0.4, 0.4); // Bad fix for getting into tight corridors
+        // End players-stuck-in-walls fix
+        velocity = dir * knockbackForce;
         if (currentSpell != null)
         {
             currentSpell.cancel();

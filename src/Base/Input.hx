@@ -2,6 +2,8 @@ import hxd.Key;
 
 class Input
 {
+    public static var jumpButton : Array<Int> = [Key.NUMPAD_8, Key.H];
+    public static var castButton : Array<Int> = [Key.NUMPAD_4, Key.G];
     // TBA: Add key binding
     public static function getLeft(player : Int) : Bool
     {
@@ -20,12 +22,12 @@ class Input
     
     public static function getJump(player : Int) : Bool
     {
-        return Key.isPressed(player == 0 ? Key.NUMPAD_8 : Key.H);
+        return Key.isPressed(jumpButton[player]);
     }
     
     public static function getCast(player : Int) : Bool
     {
-        return Key.isPressed(player == 0 ? Key.NUMPAD_4 : Key.G);
+        return Key.isPressed(castButton[player]);
     }
     
     private static function getDown(player : Int) : Bool // Useless
