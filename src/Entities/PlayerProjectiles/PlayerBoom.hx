@@ -23,4 +23,8 @@ class PlayerBoom extends BasePlayerProjectile
         super.fixedUpdate(timeScale);
         pos = toFollow.pos;
     }
+
+    override function get_damage():Int {
+        return 2;
+    }
 }
