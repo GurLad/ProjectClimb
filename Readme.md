@@ -1,5 +1,7 @@
 # Project Climb
 This was a challenge for me: make a complete game from scratch in exactly 1 month (release date: 20/6/21) while learning a new language (Haxe). The project is now complete.
+## Post-moterm
+The detailed post-moterm is available [here](https://www.disk-o-key.com/PCPM.html).
 ## About
 You both play the mage Blunk (I didn't have time for a second character): a huge eyeball that hates snails. Choose one of the four types of magic to use, fight snails, and reach the mighty boss at the top (spoiler: a snail).
 ## On Blink (teleport) and Spells
